@@ -1,0 +1,123 @@
+import Image from 'next/image'
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
+  return (
+    <footer className="bg-navy-900 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+
+          {/* Brand */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/image/logo_new.png"
+                  alt="피플인피플 로고"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div>
+                <p className="text-white font-black text-xl tracking-tight leading-none">
+                  PEOPLE IN PEOPLE
+                </p>
+                <p className="text-teal text-[10px] font-bold tracking-widest mt-1">
+                  ㈜피플인피플
+                </p>
+              </div>
+            </div>
+            <p className="text-white/30 text-sm leading-relaxed max-w-xs mb-6">
+              기획 첫날부터 입주 완료일까지,
+              <br />끝까지 함께합니다.
+            </p>
+            <div className="mt-6 flex gap-3">
+              {[
+                { label: 'SERVICES', href: '#services' },
+                { label: 'PROJECTS', href: '#projects' },
+                { label: 'CONTACT', href: '#contact' },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-white/30 text-xs border border-white/10 px-3 py-1.5 hover:text-white hover:border-white/30 transition-colors tracking-widest"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Company Info */}
+          <div>
+            <p className="text-xs font-semibold text-white/30 tracking-widest uppercase mb-5">
+              COMPANY INFO
+            </p>
+            <ul className="space-y-3 text-sm text-white/50">
+              <li>
+                <span className="text-white/20 text-xs block mb-0.5">대표이사</span>
+                김성룡
+              </li>
+              <li>
+                <span className="text-white/20 text-xs block mb-0.5">설립연도</span>
+                2013년
+              </li>
+              <li>
+                <span className="text-white/20 text-xs block mb-0.5">수행 실적</span>
+                16개 단지 · 6,182세대
+              </li>
+              <li>
+                <span className="text-white/20 text-xs block mb-0.5">사업영역</span>
+                부산·경남·수도권
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p className="text-xs font-semibold text-white/30 tracking-widest uppercase mb-5">
+              CONTACT
+            </p>
+            <ul className="space-y-3 text-sm text-white/50">
+              <li className="leading-relaxed">
+                <span className="text-white/20 text-xs block mb-0.5">주소</span>
+                부산광역시 수영구 광안해변로 263,
+                <br />1612호 (민락동, 파로스오피스텔)
+              </li>
+              <li>
+                <span className="text-white/20 text-xs block mb-0.5">대표전화</span>
+                <a
+                  href="tel:05150505656"
+                  className="hover:text-teal transition-colors font-semibold text-white/70"
+                >
+                  051-505-5656
+                </a>
+              </li>
+              <li>
+                <span className="text-white/20 text-xs block mb-0.5">팩스</span>
+                051-980-5656
+              </li>
+              <li>
+                <span className="text-white/20 text-xs block mb-0.5">업무시간</span>
+                평일 09:00 – 18:00
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-white/20 text-xs">
+            © {currentYear} ㈜피플인피플. All rights reserved.
+          </p>
+          <p className="text-white/15 text-xs">
+            Realty Marketing Solution Company — 부동산 분양대행 · 컨설팅 · 입주대행
+          </p>
+        </div>
+      </div>
+    </footer>
+  )
+}
