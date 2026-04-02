@@ -63,13 +63,12 @@ const mockNews: NewsItem[] = [
 ]
 
 export default function NewsInsight() {
-  const [news, setNews] = useState<NewsItem[]>([])
+  const [news, setNews] = useState<NewsItem[]>(mockNews)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [visibleCount, setVisibleCount] = useState(3)
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setNews(mockNews)
     
     const handleResize = () => {
       setVisibleCount(window.innerWidth < 768 ? 1 : 3)
