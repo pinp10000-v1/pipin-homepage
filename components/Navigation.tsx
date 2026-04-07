@@ -16,10 +16,14 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const [clickedSection, setClickedSection] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      // 히어로 섹션을 벗어날 때 흰 배경 전환
+      const heroEl = document.getElementById('hero')
+      const threshold = heroEl ? heroEl.offsetHeight * 0.85 : window.innerHeight * 0.85
+      setScrolled(window.scrollY > threshold)
 
       // Active section detection
       const sections = ['hero', 'about', 'news', 'services', 'projects', 'solution', 'contact']
@@ -38,19 +42,21 @@ export default function Navigation() {
   const handleNavClick = (href: string) => {
     setMenuOpen(false)
     const id = href.replace('#', '')
+    setClickedSection(id)
     const el = document.getElementById(id)
     if (el) {
       const offset = 80
       const top = el.getBoundingClientRect().top + window.scrollY - offset
       window.scrollTo({ top, behavior: 'smooth' })
     }
+    setTimeout(() => setClickedSection(null), 1000)
   }
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm'
+          ? 'bg-white shadow-sm border-b border-gray-100'
           : 'bg-transparent'
       }`}
     >
@@ -85,7 +91,7 @@ export default function Navigation() {
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const sectionId = link.href.replace('#', '')
-            const isActive = activeSection === sectionId
+            const isActive = activeSection === sectionId || clickedSection === sectionId
             return (
               <button
                 key={link.href}
@@ -98,7 +104,7 @@ export default function Navigation() {
               >
                 {link.label}
                 <span
-                  className={`absolute bottom-0 left-0 h-[2px] bg-teal transition-all duration-300 ${
+                  className={`absolute bottom-0 left-0 h-[2px] bg-teal transition-all duration-500 ease-out ${
                     isActive ? 'w-full' : 'w-0'
                   }`}
                 />
@@ -124,30 +130,14 @@ export default function Navigation() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="메뉴"
         >
-          <span
-            className={`block w-6 h-0.5 transition-all duration-300 ${
-              menuOpen ? 'rotate-45 translate-y-2' : ''
-            } ${scrolled ? 'bg-navy' : 'bg-white'}`}
-          />
-          <span
-            className={`block w-6 h-0.5 transition-all duration-300 ${
-              menuOpen ? 'opacity-0' : ''
-            } ${scrolled ? 'bg-navy' : 'bg-white'}`}
-          />
-          <span
-            className={`block w-6 h-0.5 transition-all duration-300 ${
-              menuOpen ? '-rotate-45 -translate-y-2' : ''
-            } ${scrolled ? 'bg-navy' : 'bg-white'}`}
-          />
+          <span className={`block w-6 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''} ${scrolled ? 'bg-navy' : 'bg-white'}`} />
+          <span className={`block w-6 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''} ${scrolled ? 'bg-navy' : 'bg-white'}`} />
+          <span className={`block w-6 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''} ${scrolled ? 'bg-navy' : 'bg-white'}`} />
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`md:hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300 ${
-          menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
+      <div className={`md:hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="flex flex-col px-6 py-5 gap-5">
           {navLinks.map((link) => (
             <button
