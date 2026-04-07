@@ -161,10 +161,9 @@ export default function NewsInsight() {
             }}
           >
             {news.map((item, i) => (
-              <a
+              <div
                 key={item.id}
-                href={item.link}
-                className={`reveal block group flex-shrink-0 bg-white p-10 shadow-lg border border-gray-100 hover:-translate-y-2 transition-all duration-300 relative overflow-hidden ${
+                className={`reveal block group flex-shrink-0 bg-white p-10 shadow-lg border border-gray-100 transition-all duration-300 relative overflow-hidden ${
                   visibleCount === 1 ? 'w-full' : 'w-[calc(33.333%-1rem)]'
                 }`}
               >
@@ -186,11 +185,11 @@ export default function NewsInsight() {
                   {item.summary}
                 </p>
                 
-                <div className="flex items-center gap-3 text-navy font-black text-[10px] tracking-widest uppercase mt-auto">
-                  <span className="w-8 h-px bg-navy group-hover:w-12 transition-all" />
-                  READ MORE
+                <div className="flex items-center gap-3 text-gray-300 font-black text-[10px] tracking-widest uppercase mt-auto">
+                  <span className="w-8 h-px bg-gray-200" />
+                  COMING SOON
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>

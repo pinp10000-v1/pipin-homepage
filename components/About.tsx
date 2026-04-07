@@ -60,7 +60,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10" ref={ref}>
 
         {/* Top Grid: CEO Message + Company Identity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-24 items-end">
 
           {/* Left: Section Label + Tagline */}
           <div className="reveal">
@@ -104,9 +104,6 @@ export default function About() {
                   </p>
                 </div>
                 <div className="mt-8 flex items-center gap-3">
-                  <div className="w-12 h-12 bg-teal flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-black text-xs">CEO</span>
-                  </div>
                   <div>
                     <p className="text-white font-black text-sm">김성룡</p>
                     <p className="text-white/40 text-xs tracking-widest">대표이사 — ㈜피플인피플</p>
