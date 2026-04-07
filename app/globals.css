@@ -23,10 +23,14 @@ html {
 @layer utilities {
   /* Scroll reveal animation */
   .reveal {
-    opacity: 0;
-    transform: translateY(32px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.animate {
+    opacity: 0;
+    transform: translateY(28px);
   }
   .reveal.visible {
     opacity: 1;
