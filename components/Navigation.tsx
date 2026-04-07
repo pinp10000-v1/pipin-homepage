@@ -16,6 +16,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const [clickedSection, setClickedSection] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,12 +39,14 @@ export default function Navigation() {
   const handleNavClick = (href: string) => {
     setMenuOpen(false)
     const id = href.replace('#', '')
+    setClickedSection(id)
     const el = document.getElementById(id)
     if (el) {
       const offset = 80
       const top = el.getBoundingClientRect().top + window.scrollY - offset
       window.scrollTo({ top, behavior: 'smooth' })
     }
+    setTimeout(() => setClickedSection(null), 800)
   }
 
   return (
@@ -92,14 +95,17 @@ export default function Navigation() {
                 onClick={() => handleNavClick(link.href)}
                 className={`relative text-xs font-semibold tracking-[0.18em] transition-colors duration-300 pb-1 ${
                   isActive
-                    ? scrolled ? 'text-teal' : 'text-teal'
+                    ? 'text-teal'
                     : scrolled ? 'text-gray-600 hover:text-navy' : 'text-white/70 hover:text-white'
                 }`}
               >
                 {link.label}
+                {/* 호버 실선 */}
+                <span className="absolute bottom-0 left-0 h-[2px] bg-teal/30 w-0 group-hover:w-full transition-all duration-300" />
+                {/* 클릭 실선: 좌→우 펼쳐짐 */}
                 <span
-                  className={`absolute bottom-0 left-0 h-[2px] bg-teal transition-all duration-300 ${
-                    isActive ? 'w-full' : 'w-0'
+                  className={`absolute bottom-0 left-0 h-[2px] bg-teal transition-all duration-500 ease-out ${
+                    isActive || clickedSection === sectionId ? 'w-full' : 'w-0'
                   }`}
                 />
               </button>
