@@ -16,7 +16,6 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
-  const [clickedSection, setClickedSection] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +23,7 @@ export default function Navigation() {
 
       // Active section detection
       const sections = ['hero', 'about', 'news', 'services', 'projects', 'solution', 'contact']
-      for (const section of sections.reverse()) {
+      for (const section of [...sections].reverse()) {
         const el = document.getElementById(section)
         if (el && window.scrollY >= el.offsetTop - 100) {
           setActiveSection(section)
@@ -39,14 +38,12 @@ export default function Navigation() {
   const handleNavClick = (href: string) => {
     setMenuOpen(false)
     const id = href.replace('#', '')
-    setClickedSection(id)
     const el = document.getElementById(id)
     if (el) {
       const offset = 80
       const top = el.getBoundingClientRect().top + window.scrollY - offset
       window.scrollTo({ top, behavior: 'smooth' })
     }
-    setTimeout(() => setClickedSection(null), 800)
   }
 
   return (
@@ -102,7 +99,7 @@ export default function Navigation() {
                 {link.label}
                 <span
                   className={`absolute bottom-0 left-0 h-[2px] bg-teal transition-all duration-300 ${
-                    isActive || clickedSection === sectionId ? 'w-full' : 'w-0'
+                    isActive ? 'w-full' : 'w-0'
                   }`}
                 />
               </button>
