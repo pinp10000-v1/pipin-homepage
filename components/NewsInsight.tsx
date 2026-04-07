@@ -88,7 +88,7 @@ export default function NewsInsight() {
           }
         })
       },
-      { threshold: 0.1 }
+      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
     )
     items.forEach((item) => observer.observe(item))
     return () => {

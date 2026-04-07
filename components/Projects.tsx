@@ -68,7 +68,7 @@ export default function Projects() {
           }
         })
       },
-      { threshold: 0.08 }
+      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
     )
     cards.forEach((card) => observer.observe(card))
     return () => observer.disconnect()

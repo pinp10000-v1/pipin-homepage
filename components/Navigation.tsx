@@ -12,11 +12,8 @@ const navLinks = [
   { label: 'EXPERTISE', href: '#solution' },
 ]
 
-type Language = 'ko' | 'en' | 'zh'
-
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
-  const [language, setLanguage] = useState<Language>('ko')
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
 
@@ -103,37 +100,6 @@ export default function Navigation() {
               </button>
             )
           })}
-
-          {/* Language Selector */}
-          <div className="flex items-center gap-1 border-l border-gray-300 pl-8">
-            <button
-              onClick={() => setLanguage('ko')}
-              title="한국어"
-              className={`text-xl px-2 py-1 transition-all duration-300 ${
-                language === 'ko' ? 'scale-125' : 'scale-100 opacity-50'
-              } hover:scale-125 hover:opacity-100`}
-            >
-              🇰🇷
-            </button>
-            <button
-              onClick={() => setLanguage('en')}
-              title="English"
-              className={`text-xl px-2 py-1 transition-all duration-300 ${
-                language === 'en' ? 'scale-125' : 'scale-100 opacity-50'
-              } hover:scale-125 hover:opacity-100`}
-            >
-              🇬🇧
-            </button>
-            <button
-              onClick={() => setLanguage('zh')}
-              title="中文"
-              className={`text-xl px-2 py-1 transition-all duration-300 ${
-                language === 'zh' ? 'scale-125' : 'scale-100 opacity-50'
-              } hover:scale-125 hover:opacity-100`}
-            >
-              🇨🇳
-            </button>
-          </div>
 
           <button
             onClick={() => handleNavClick('#contact')}
