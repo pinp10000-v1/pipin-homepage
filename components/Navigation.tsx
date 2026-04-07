@@ -58,7 +58,7 @@ export default function Navigation() {
             scrolled ? 'text-navy' : 'text-white'
           }`}
         >
-          <div className="relative w-8 h-8 md:w-10 md:h-10">
+          <div className="relative w-10 h-10 md:w-12 md:h-12">
             <Image
               src="/image/logo_transparent.png"
               alt="피플인피플 로고"
@@ -100,6 +100,41 @@ export default function Navigation() {
               </button>
             )
           })}
+
+          {/* Language Selector */}
+          <div className="flex items-center gap-2 border-l border-gray-300 pl-8">
+            <button
+              title="한국어"
+              className={`text-xs font-semibold tracking-[0.18em] px-2 py-1 transition-colors duration-300 ${
+                scrolled
+                  ? 'text-navy hover:text-teal'
+                  : 'text-white hover:text-teal'
+              }`}
+            >
+              KO
+            </button>
+            <button
+              title="English"
+              className={`text-xs font-semibold tracking-[0.18em] px-2 py-1 transition-colors duration-300 ${
+                scrolled
+                  ? 'text-gray-400 hover:text-navy'
+                  : 'text-white/50 hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              title="中文"
+              className={`text-xs font-semibold tracking-[0.18em] px-2 py-1 transition-colors duration-300 ${
+                scrolled
+                  ? 'text-gray-400 hover:text-navy'
+                  : 'text-white/50 hover:text-white'
+              }`}
+            >
+              ZH
+            </button>
+          </div>
+
           <button
             onClick={() => handleNavClick('#contact')}
             className={`text-xs font-bold tracking-[0.18em] border-2 px-5 py-2.5 transition-all duration-200 ${

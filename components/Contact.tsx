@@ -82,6 +82,14 @@ export default function Contact() {
 
           {/* Left: Tip Box */}
           <div className="lg:col-span-4 reveal" style={{ transitionDelay: '100ms' }}>
+            {/* Success Image */}
+            <div className="mb-6 overflow-hidden bg-gradient-to-br from-teal/10 to-navy/10 rounded-lg flex items-center justify-center min-h-40">
+              <svg className="w-32 h-32 text-teal opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {/* Replace with: <Image src="/image/success-hero.png" alt="성공" fill className="object-cover" /> */}
+            </div>
+
             <div className="h-full p-8 bg-surface border-l-4 border-teal relative shadow-sm flex flex-col">
               <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
                 <svg className="w-24 h-24" fill="currentColor" viewBox="0 0 20 20">

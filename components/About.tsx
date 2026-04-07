@@ -17,17 +17,20 @@ const identityCards = [
   {
     title: '전문성',
     img: '/image/about_expertise.png',
-    desc: '아파트·오피스텔·지식산업센터·상가 전 업종 분양 경험. 20년 이상 현장에서 축적한 데이터 기반 전략.',
+    desc: '아파트·오피스텔·지식산업센터·상가 전 업종 분양 경험. ',
+    boldDesc: '20년 이상 현장에서 축적한 데이터 기반 전략.',
   },
   {
     title: '신뢰성',
     img: '/image/about_trust.png',
-    desc: '창사 이래 단 한 번도 현장을 미완료한 적 없습니다. SK에코플랜트·대우건설·GS건설·쌍용건설·한화건설·DL이앤씨가 선택한 파트너.',
+    desc: '창사 이래 단 한 번도 현장을 미완료한 적 없습니다. ',
+    boldDesc: 'SK에코플랜트·대우건설·GS건설·쌍용건설·한화건설·DL이앤씨가 선택한 파트너.',
   },
   {
     title: '지속성',
     img: '/image/about_continuity.png',
-    desc: '분양 완료 후에도 책임집니다. 분양팀과 입주관리팀이 동일하게 운영되어 고객과의 관계가 끝나지 않습니다.',
+    desc: '분양 완료 후에도 책임집니다. ',
+    boldDesc: '분양팀과 입주관리팀이 동일하게 운영되어 고객과의 관계가 끝나지 않습니다.',
   },
 ]
 
@@ -80,19 +83,34 @@ export default function About() {
             </p>
 
             {/* CEO Quote Card */}
-            <div className="mt-10 bg-navy p-8 relative">
-              <span className="absolute top-6 left-8 text-6xl text-teal/20 font-serif leading-none">&ldquo;</span>
-              <p className="text-white/90 text-base leading-relaxed relative z-10 pt-4">
-                고객의 중심에서 고객의 기대를 초월하는 기업만이 성공할 수 있습니다.
-                피플인피플은 그 원칙 하나로 12년을 걸어왔고, 앞으로도 변하지 않을 것입니다.
-              </p>
-              <div className="mt-6 flex items-center gap-3">
-                <div className="w-10 h-10 bg-teal flex items-center justify-center">
-                  <span className="text-white font-black text-xs">CEO</span>
-                </div>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
+              {/* CEO Photo */}
+              <div className="relative h-80 sm:h-auto overflow-hidden bg-navy">
+                <Image
+                  src="/image/ceo_photo.jpg"
+                  alt="CEO 김성룡"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* CEO Quote */}
+              <div className="bg-navy p-8 relative flex flex-col justify-between">
                 <div>
-                  <p className="text-white font-black text-sm">김성룡</p>
-                  <p className="text-white/40 text-xs tracking-widest">대표이사 — ㈜피플인피플</p>
+                  <span className="absolute top-6 left-8 text-6xl text-teal/20 font-serif leading-none">&ldquo;</span>
+                  <p className="text-white/90 text-base leading-relaxed relative z-10 pt-4">
+                    고객의 중심에서 고객의 기대를 초월하는 기업만이 성공할 수 있습니다.
+                    피플인피플은 그 원칙 하나로 12년을 걸어왔고, 앞으로도 변하지 않을 것입니다.
+                  </p>
+                </div>
+                <div className="mt-8 flex items-center gap-3">
+                  <div className="w-12 h-12 bg-teal flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-black text-xs">CEO</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-black text-sm">김성룡</p>
+                    <p className="text-white/40 text-xs tracking-widest">대표이사 — ㈜피플인피플</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -120,7 +138,10 @@ export default function About() {
                 </div>
                 {/* Card Content */}
                 <div className="p-6">
-                  <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    {card.desc}
+                    <strong className="text-gray-600 font-bold">{card.boldDesc}</strong>
+                  </p>
                 </div>
               </div>
             ))}
