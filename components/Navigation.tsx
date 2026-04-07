@@ -66,7 +66,7 @@ export default function Navigation() {
             scrolled ? 'text-navy' : 'text-white'
           }`}
         >
-          <div className="relative w-10 h-10 md:w-12 md:h-12">
+          <div className="relative w-8 h-8 md:w-10 md:h-10">
             <Image
               src="/image/logo_transparent.png"
               alt="피플인피플 로고"
@@ -100,11 +100,8 @@ export default function Navigation() {
                 }`}
               >
                 {link.label}
-                {/* 호버 실선 */}
-                <span className="absolute bottom-0 left-0 h-[2px] bg-teal/30 w-0 group-hover:w-full transition-all duration-300" />
-                {/* 클릭 실선: 좌→우 펼쳐짐 */}
                 <span
-                  className={`absolute bottom-0 left-0 h-[2px] bg-teal transition-all duration-500 ease-out ${
+                  className={`absolute bottom-0 left-0 h-[2px] bg-teal transition-all duration-300 ${
                     isActive || clickedSection === sectionId ? 'w-full' : 'w-0'
                   }`}
                 />
