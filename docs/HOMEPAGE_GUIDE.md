@@ -1,5 +1,19 @@
 # 피플인피플 홈페이지 관리 가이드
 
+## 홈페이지 수정 방법 (핵심)
+
+코드 수정 후 아래 3줄만 실행하면 www.pip-biz.com 에 자동 반영됨:
+
+```bash
+git add .
+git commit -m "수정 내용"
+git push origin master
+```
+
+> `git push` 후 **1~2분** 기다리면 홈페이지에 반영됨
+
+---
+
 ## 구조 개요
 
 ```
