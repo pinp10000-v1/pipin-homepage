@@ -48,7 +48,7 @@ const portfolioGroups = [
     label: '수도권',
     items: [
       '광명 퍼스트스위첸',
-      '청라SK 지식산업센터',
+      '청라 SK V1 지식산업센터',
     ],
   },
 ]

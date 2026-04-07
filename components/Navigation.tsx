@@ -22,7 +22,7 @@ export default function Navigation() {
       setScrolled(window.scrollY > 50)
 
       // Active section detection
-      const sections = ['hero', 'about', 'services', 'projects', 'solution', 'contact']
+      const sections = ['hero', 'about', 'news', 'services', 'projects', 'solution', 'contact']
       for (const section of sections.reverse()) {
         const el = document.getElementById(section)
         if (el && window.scrollY >= el.offsetTop - 100) {
@@ -60,7 +60,7 @@ export default function Navigation() {
         >
           <div className="relative w-8 h-8 md:w-10 md:h-10">
             <Image
-              src="/image/logo_new.png"
+              src="/image/logo_transparent.png"
               alt="피플인피플 로고"
               fill
               className="object-contain"

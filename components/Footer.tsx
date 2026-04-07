@@ -15,7 +15,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div className="relative w-10 h-10">
                 <Image
-                  src="/image/logo_new.png"
+                  src="/image/logo_transparent.png"
                   alt="피플인피플 로고"
                   fill
                   className="object-contain"
@@ -34,21 +34,7 @@ export default function Footer() {
               기획 첫날부터 입주 완료일까지,
               <br />끝까지 함께합니다.
             </p>
-            <div className="mt-6 flex gap-3">
-              {[
-                { label: 'SERVICES', href: '#services' },
-                { label: 'PROJECTS', href: '#projects' },
-                { label: 'CONTACT', href: '#contact' },
-              ].map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-white/30 text-xs border border-white/10 px-3 py-1.5 hover:text-white hover:border-white/30 transition-colors tracking-widest"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+
           </div>
 
           {/* Company Info */}

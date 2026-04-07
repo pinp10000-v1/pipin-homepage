@@ -1,14 +1,34 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 
 const milestones = [
-  { year: '2013', event: '㈜피플인피플 창사' },
-  { year: '2015', event: '부산·경남 분양대행 시장 진출, 첫 단지 완판' },
-  { year: '2018', event: 'GS건설·쌍용건설 공식 컨설팅 파트너 선정' },
-  { year: '2020', event: '연제 SK VIEW CENTRAL 405세대 + 오피스텔 48실 완판·입주대행 100%' },
-  { year: '2021', event: '김해 푸르지오 하이앤드 2차 1,380세대 초기 분양 완료' },
-  { year: '2024', event: '수도권 사업 확장 — 광명 퍼스트스위첸·청라SK 지식산업센터 진행' },
+  { year: '2013', event: '㈜피플인피플 창사', img: '/image/milestone_2013.png' },
+  { year: '2015', event: '부산·경남 분양대행 시장 진출, 첫 단지 완판', img: null },
+  { year: '2018', event: 'GS건설·쌍용건설 공식 컨설팅 파트너 선정', img: null },
+  { year: '2020', event: '연제 SK VIEW CENTRAL 405세대 + 오피스텔 48실 완판·입주대행 100%', img: null },
+  { year: '2021', event: '김해 푸르지오 하이앤드 2차 1,380세대 초기 분양 완료', img: null },
+  { year: '2024', event: '수도권 사업 확장 — 광명 퍼스트스위첸·청라SK 지식산업센터 진행', img: null },
+  { year: '2026', event: '청라 SK V1 지식산업센터 분양중', img: '/image/milestone_2026.png', upcoming: true },
+]
+
+const identityCards = [
+  {
+    title: '전문성',
+    img: '/image/about_expertise.png',
+    desc: '아파트·오피스텔·지식산업센터·상가 전 업종 분양 경험. 20년 이상 현장에서 축적한 데이터 기반 전략.',
+  },
+  {
+    title: '신뢰성',
+    img: '/image/about_trust.png',
+    desc: '창사 이래 단 한 번도 현장을 미완료한 적 없습니다. SK에코플랜트·대우건설·GS건설·쌍용건설·한화건설·DL이앤씨가 선택한 파트너.',
+  },
+  {
+    title: '지속성',
+    img: '/image/about_continuity.png',
+    desc: '분양 완료 후에도 책임집니다. 분양팀과 입주관리팀이 동일하게 운영되어 고객과의 관계가 끝나지 않습니다.',
+  },
 ]
 
 export default function About() {
@@ -51,7 +71,7 @@ export default function About() {
             </h2>
             <p className="text-gray-500 text-base leading-relaxed mb-8">
               2013년 창업 이래, 피플인피플은 단 하나의 원칙으로 성장했습니다.
-              <strong className="text-navy font-bold"> "고객이 기대하는 것 이상을 해낸다."</strong>
+              <strong className="text-orange-500 font-bold text-lg"> &ldquo;고객이 기대하는 것 이상을 해낸다.&rdquo;</strong>
             </p>
             <p className="text-gray-500 text-base leading-relaxed">
               대형 건설사가 먼저 찾고, 초기 분양 미달 현장도 완판으로 이끈 조직력.
@@ -78,34 +98,28 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right: Company Identity Cards */}
+          {/* Right: Company Identity Cards with Images */}
           <div className="reveal space-y-4" style={{ transitionDelay: '150ms' }}>
-            {[
-              {
-                title: '전문성',
-                icon: '◈',
-                desc: '아파트·오피스텔·지식산업센터·상가 전 업종 분양 경험. 20년 이상 현장에서 축적한 데이터 기반 전략.'
-              },
-              {
-                title: '신뢰성',
-                icon: '◉',
-                desc: '창사 이래 단 한 번도 현장을 미완료한 적 없습니다. GS건설·쌍용건설·한화건설·DL이앤씨가 선택한 파트너.'
-              },
-              {
-                title: '지속성',
-                icon: '◎',
-                desc: '분양 완료 후에도 책임집니다. 분양팀과 입주관리팀이 동일하게 운영되어 고객과의 관계가 끝나지 않습니다.'
-              },
-            ].map((card, i) => (
+            {identityCards.map((card, i) => (
               <div
                 key={card.title}
-                className="flex gap-6 p-7 border border-gray-100 hover:border-teal hover:shadow-md transition-all duration-300 group"
+                className="border border-gray-100 hover:border-teal hover:shadow-md transition-all duration-300 group overflow-hidden"
               >
-                <span className="text-3xl text-teal group-hover:scale-110 transition-transform flex-shrink-0 mt-1">
-                  {card.icon}
-                </span>
-                <div>
-                  <h3 className="text-navy font-black text-lg mb-2">{card.title}</h3>
+                {/* Card Image */}
+                <div className="relative h-32 w-full overflow-hidden">
+                  <Image
+                    src={card.img}
+                    alt={card.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-navy/60 to-transparent" />
+                  <h3 className="absolute bottom-4 left-5 text-white font-black text-xl z-10 drop-shadow">
+                    {card.title}
+                  </h3>
+                </div>
+                {/* Card Content */}
+                <div className="p-6">
                   <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
                 </div>
               </div>
@@ -118,19 +132,43 @@ export default function About() {
           <p className="text-xs font-semibold tracking-[0.25em] text-teal uppercase mb-10">
             COMPANY HISTORY
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {milestones.map((m, i) => (
               <div
                 key={m.year}
-                className="reveal group p-6 bg-surface hover:bg-navy transition-colors duration-300"
+                className="reveal group overflow-hidden bg-surface hover:bg-navy transition-colors duration-300 relative"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                <span className="text-3xl font-black text-teal group-hover:text-teal/80 leading-none block mb-3">
-                  {m.year}
-                </span>
-                <p className="text-sm text-gray-600 group-hover:text-white/80 leading-relaxed transition-colors duration-300">
-                  {m.event}
-                </p>
+                {/* Milestone Image */}
+                {m.img ? (
+                  <div className="relative h-24 w-full overflow-hidden">
+                    <Image
+                      src={m.img}
+                      alt={`${m.year} milestone`}
+                      fill
+                      className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-300"
+                    />
+                    <div className="absolute inset-0 bg-navy/40" />
+                  </div>
+                ) : (
+                  <div className="h-24 w-full bg-gradient-to-br from-navy/10 to-teal/10 group-hover:from-teal/20 group-hover:to-navy/30 transition-colors duration-300" />
+                )}
+                {/* Card Content */}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-3xl font-black text-teal group-hover:text-teal/80 leading-none">
+                      {m.year}
+                    </span>
+                    {m.upcoming && (
+                      <span className="text-[9px] font-black text-orange-400 bg-orange-400/15 px-2 py-0.5 tracking-widest uppercase">
+                        준비중
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600 group-hover:text-white/80 leading-relaxed transition-colors duration-300">
+                    {m.event}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
