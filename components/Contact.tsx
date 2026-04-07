@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 
 export default function Contact() {
   const ref = useRef<HTMLDivElement>(null)
@@ -84,14 +83,14 @@ export default function Contact() {
           {/* Left: Tip Box */}
           <div className="lg:col-span-4 reveal" style={{ transitionDelay: '100ms' }}>
             {/* Success Image */}
-            <div className="mb-6 overflow-hidden bg-gradient-to-br from-teal/10 to-navy/10 rounded-lg relative h-48">
-              <Image
-                src="/image/success-hero.png"
-                alt="성공"
-                fill
-                className="object-cover"
-                priority
-              />
+            <div className="mb-6 overflow-hidden bg-gradient-to-br from-teal/10 to-navy/10 rounded-lg relative h-48 flex items-center justify-center">
+              {/* Placeholder - Replace with actual image */}
+              <div className="w-full h-full flex flex-col items-center justify-center p-8">
+                <svg className="w-16 h-16 text-teal mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-sm text-teal font-semibold text-center">성공 사례 이미지</p>
+              </div>
             </div>
 
             <div className="h-full p-8 bg-surface border-l-4 border-teal relative shadow-sm flex flex-col">
