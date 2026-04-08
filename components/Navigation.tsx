@@ -75,13 +75,10 @@ export default function Navigation() {
               className="object-contain"
             />
           </div>
-          <div>
+          <div className={`font-black text-base md:text-lg tracking-tight ${
+            scrolled ? 'text-navy' : 'text-white'
+          }`}>
             PEOPLE IN PEOPLE
-            <span className={`block text-[10px] font-semibold tracking-[0.2em] mt-0.5 transition-colors duration-300 ${
-              scrolled ? 'text-teal' : 'text-teal/70'
-            }`}>
-              ㈜피플인피플
-            </span>
           </div>
         </Link>
 
