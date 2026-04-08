@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 
 interface NewsItem {
   id: number
@@ -9,6 +10,7 @@ interface NewsItem {
   summary: string
   date: string
   link: string
+  image: string
 }
 
 const mockNews: NewsItem[] = [
@@ -19,6 +21,7 @@ const mockNews: NewsItem[] = [
     summary: '서울 주요 지역 신축 아파트 단지를 중심으로 매수세가 유입되며 가격 상승폭이 확대되고 있습니다.',
     date: '2025.04.01',
     link: '#',
+    image: '/image/news_01.png',
   },
   {
     id: 2,
@@ -27,6 +30,7 @@ const mockNews: NewsItem[] = [
     summary: '미국 연준(Fed)의 금리 정책 기조 변화에 따라 국내 금리 동결 가능성이 커지며 시장 관망세가 확산되고 있습니다.',
     date: '2025.03.31',
     link: '#',
+    image: '/image/news_02.png',
   },
   {
     id: 3,
@@ -35,6 +39,7 @@ const mockNews: NewsItem[] = [
     summary: '친환경 인프라와 교통망이 우수한 인천 송도 및 청라 지역 지식산업센터에 대한 기업들의 문의가 쏟아지고 있습니다.',
     date: '2025.03.30',
     link: '#',
+    image: '/image/news_03.png',
   },
   {
     id: 4,
@@ -43,6 +48,7 @@ const mockNews: NewsItem[] = [
     summary: '정부의 재건축 활성화 대책 발표 이후 세부 실행 지침에 따른 수혜 단지 분석이 활발하게 진행 중입니다.',
     date: '2025.03.29',
     link: '#',
+    image: '/image/news_04.png',
   },
   {
     id: 5,
@@ -51,6 +57,7 @@ const mockNews: NewsItem[] = [
     summary: '부동산 규제 완화 기조와 봄 이사철 수요가 맞물리며 전국 아파트 거래량이 완만한 회복세를 보이고 있습니다.',
     date: '2025.03.28',
     link: '#',
+    image: '/image/news_05.png',
   },
   {
     id: 6,
@@ -59,6 +66,7 @@ const mockNews: NewsItem[] = [
     summary: '주요 도심권(CBD, GBD) 오피스 시장의 견고한 수요로 인해 안정적인 수익율이 기대되고 있습니다.',
     date: '2025.03.27',
     link: '#',
+    image: '/image/news_06.png',
   },
 ]
 
@@ -163,31 +171,44 @@ export default function NewsInsight() {
             {news.map((item, i) => (
               <div
                 key={item.id}
-                className={`reveal block group flex-shrink-0 bg-white p-10 shadow-lg border border-gray-100 transition-all duration-300 relative overflow-hidden ${
+                className={`reveal block group flex-shrink-0 bg-white shadow-lg border border-gray-100 transition-all duration-300 relative overflow-hidden flex flex-col ${
                   visibleCount === 1 ? 'w-full' : 'w-[calc(33.333%-1rem)]'
                 }`}
               >
-                {/* Background Decor */}
-                <div className="absolute top-0 right-0 w-16 h-16 bg-navy/5 -mr-8 -mt-8 rotate-45" />
-                
-                <div className="flex items-center justify-between mb-8">
-                  <span className="text-[10px] font-bold text-teal tracking-[0.2em] uppercase border-b-2 border-teal/20 pb-0.5">
-                    {item.category}
-                  </span>
-                  <span className="text-[10px] text-gray-300 font-medium tracking-widest">{item.date}</span>
+                {/* Card Image */}
+                <div className="relative h-48 w-full overflow-hidden bg-gray-100">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
-                
-                <h3 className="text-xl font-black text-navy mb-6 group-hover:text-teal transition-colors leading-tight h-14 line-clamp-2">
-                  {item.title}
-                </h3>
-                
-                <p className="text-sm text-gray-500 leading-relaxed mb-10 line-clamp-3">
-                  {item.summary}
-                </p>
-                
-                <div className="flex items-center gap-3 text-gray-300 font-black text-[10px] tracking-widest uppercase mt-auto">
-                  <span className="w-8 h-px bg-gray-200" />
-                  COMING SOON
+
+                {/* Background Decor */}
+                <div className="absolute top-48 right-0 w-16 h-16 bg-navy/5 -mr-8 -mt-8 rotate-45" />
+
+                {/* Card Content */}
+                <div className="p-10 flex flex-col flex-grow">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-[10px] font-bold text-teal tracking-[0.2em] uppercase border-b-2 border-teal/20 pb-0.5">
+                      {item.category}
+                    </span>
+                    <span className="text-[10px] text-gray-300 font-medium tracking-widest">{item.date}</span>
+                  </div>
+
+                  <h3 className="text-lg font-black text-navy mb-4 group-hover:text-teal transition-colors leading-tight h-14 line-clamp-2">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-500 leading-relaxed mb-8 line-clamp-3 flex-grow">
+                    {item.summary}
+                  </p>
+
+                  <div className="flex items-center gap-3 text-gray-300 font-black text-[10px] tracking-widest uppercase mt-auto">
+                    <span className="w-8 h-px bg-gray-200" />
+                    COMING SOON
+                  </div>
                 </div>
               </div>
             ))}
