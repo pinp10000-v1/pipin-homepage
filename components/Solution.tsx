@@ -98,9 +98,6 @@ export default function Solution() {
                     {s.problem}
                   </h3>
                 </div>
-                <div className="mt-8">
-                  <span className="text-xs font-semibold text-rose-400 bg-rose-400/10 px-3 py-1 rounded-full px-2">Critical Pain Point</span>
-                </div>
               </div>
 
               {/* Solution Side */}
