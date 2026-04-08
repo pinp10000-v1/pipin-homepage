@@ -20,10 +20,8 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 히어로 섹션을 벗어날 때 흰 배경 전환
-      const heroEl = document.getElementById('hero')
-      const threshold = heroEl ? heroEl.offsetHeight * 0.85 : window.innerHeight * 0.85
-      setScrolled(window.scrollY > threshold)
+      // 히어로 섹션을 벗어날 때 흰 배경 전환 (약 600-700px)
+      setScrolled(window.scrollY > 600)
 
       // Active section detection
       const sections = ['hero', 'about', 'news', 'services', 'projects', 'solution', 'contact']
