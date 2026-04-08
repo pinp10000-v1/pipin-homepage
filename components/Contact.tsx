@@ -78,7 +78,10 @@ export default function Contact() {
         </div>
 
         {/* 3-Column Grid: Tip Box + Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative">
+
+          {/* Left vertical line */}
+          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-1 bg-teal -ml-0" />
 
           {/* Left: Tip Box */}
           <div className="lg:col-span-4 reveal" style={{ transitionDelay: '100ms' }}>
