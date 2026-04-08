@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 
 const projects = [
   {
@@ -31,30 +32,22 @@ const projects = [
   },
 ]
 
-const portfolioGroups = [
-  {
-    label: '부산·경남',
-    items: [
-      '광안지웰에스테이트 더테라스',
-      '연제 SK VIEW CENTRAL',
-      '센텀 천일스카이원',
-      '혜도인 파크에비뉴 서면',
-      '삼정 사직역 그린코아',
-      '울산 혁신비즈니스센터',
-      '송도 베스트웨스턴 플러스',
-    ],
-  },
-  {
-    label: '수도권',
-    items: [
-      '광명 퍼스트스위첸',
-      '청라 SK V1 지식산업센터',
-    ],
-  },
+const portfolioProjects = [
+  { name: '광안지웰에스테이트 더테라스', region: '부산·경남', image: '/image/portfolio_01.png' },
+  { name: '연제 SK VIEW CENTRAL', region: '부산·경남', image: '/image/portfolio_02.png' },
+  { name: '센텀 천일스카이원', region: '부산·경남', image: '/image/portfolio_03.png' },
+  { name: '혜도인 파크에비뉴 서면', region: '부산·경남', image: '/image/portfolio_04.png' },
+  { name: '삼정 사직역 그린코아', region: '부산·경남', image: '/image/portfolio_05.png' },
+  { name: '울산 혁신비즈니스센터', region: '부산·경남', image: '/image/portfolio_06.png' },
+  { name: '송도 베스트웨스턴 플러스', region: '부산·경남', image: '/image/portfolio_07.png' },
+  { name: '광명 퍼스트스위첸', region: '수도권', image: '/image/portfolio_08.png' },
+  { name: '청라 SK V1 지식산업센터', region: '수도권', image: '/image/portfolio_09.png' },
 ]
 
 export default function Projects() {
   const ref = useRef<HTMLDivElement>(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const itemsPerPage = 3
 
   useEffect(() => {
     const cards = ref.current?.querySelectorAll('.reveal')
@@ -73,6 +66,18 @@ export default function Projects() {
     cards.forEach((card) => observer.observe(card))
     return () => observer.disconnect()
   }, [])
+
+  const nextSlide = () => {
+    if (currentIndex < portfolioProjects.length - itemsPerPage) {
+      setCurrentIndex(currentIndex + 1)
+    }
+  }
+
+  const prevSlide = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1)
+    }
+  }
 
   return (
     <section id="projects" className="bg-navy py-24 md:py-32">
@@ -141,29 +146,63 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Portfolio Breakdown */}
+        {/* Portfolio Carousel */}
         <div className="reveal border border-white/10 p-8 md:p-10 bg-white/3">
-          <p className="text-xs font-semibold tracking-[0.2em] text-white/30 uppercase mb-8">
-            전체 수행 현장 — 16개 단지
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {portfolioGroups.map((group) => (
-              <div key={group.label}>
-                <p className="text-xs font-bold text-teal tracking-widest uppercase mb-4">
-                  {group.label}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="text-sm text-white/50 bg-white/5 border border-white/10 px-4 py-2 hover:text-white hover:border-teal/50 transition-colors cursor-default"
-                    >
-                      {item}
-                    </span>
-                  ))}
+          <div className="flex items-center justify-between mb-10">
+            <p className="text-xs font-semibold tracking-[0.2em] text-white/30 uppercase">
+              전체 수행 현장
+            </p>
+            {/* Navigation Arrows */}
+            <div className="flex gap-2">
+              <button
+                onClick={prevSlide}
+                disabled={currentIndex === 0}
+                className="w-10 h-10 flex items-center justify-center border border-white/20 text-white hover:border-teal hover:bg-teal/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={nextSlide}
+                disabled={currentIndex >= portfolioProjects.length - itemsPerPage}
+                className="w-10 h-10 flex items-center justify-center border border-white/20 text-white hover:border-teal hover:bg-teal/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Carousel Items */}
+          <div className="overflow-hidden -mx-8 px-8">
+            <div
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 transition-transform duration-500"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)`,
+                gridTemplateColumns: `repeat(${portfolioProjects.length}, minmax(calc(100% / ${itemsPerPage}), 1fr))`,
+              }}
+            >
+              {portfolioProjects.map((project) => (
+                <div key={project.name} className="flex-shrink-0">
+                  <div className="relative h-48 w-full overflow-hidden bg-white/5 mb-4">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <p className="text-xs font-semibold text-teal/70 tracking-widest uppercase mb-1">
+                    {project.region}
+                  </p>
+                  <p className="text-sm font-bold text-white leading-tight hover:text-teal transition-colors cursor-default">
+                    {project.name}
+                  </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
