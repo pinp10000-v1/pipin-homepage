@@ -100,9 +100,25 @@ export default function Footer() {
             Business Partners
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-            {['GS건설', '쌍용건설', '대우건설', 'SK건설', '한화건설', 'DL이앤씨'].map((partner) => (
-              <div key={partner} className="flex items-center justify-center p-4 bg-white/5 hover:bg-white/10 transition-colors rounded-sm">
-                <p className="text-white/40 text-[10px] font-bold text-center">{partner}</p>
+            {[
+              { name: 'GS건설', logo: '/image/partner_gs.png' },
+              { name: '쌍용건설', logo: '/image/partner_ssangyong.png' },
+              { name: '대우건설', logo: '/image/partner_daewoo.png' },
+              { name: 'SK건설', logo: '/image/partner_sk.png' },
+              { name: '한화건설', logo: '/image/partner_hanwha.png' },
+              { name: 'DL이앤씨', logo: '/image/partner_dl.png' }
+            ].map((partner) => (
+              <div key={partner.name} className="flex items-center justify-center p-4 bg-white/5 hover:bg-white/10 transition-colors rounded-sm min-h-24">
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <Image
+                    src={partner.logo}
+                    alt={partner.name}
+                    width={80}
+                    height={60}
+                    className="object-contain"
+                    priority={false}
+                  />
+                </div>
               </div>
             ))}
           </div>
