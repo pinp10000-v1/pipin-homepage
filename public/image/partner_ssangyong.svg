@@ -1,0 +1,5 @@
+<svg width="160" height="80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="80" fill="#ffffff" rx="4"/>
+  <rect x="1" y="1" width="158" height="78" fill="none" stroke="#e0e0e0" stroke-width="1" rx="3"/>
+  <text x="80" y="46" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">쌍용건설</text>
+</svg>

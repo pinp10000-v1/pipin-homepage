@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
@@ -14,11 +12,11 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="relative w-10 h-10">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src="/image/logo_transparent.png"
                   alt="피플인피플 로고"
-                  fill
-                  className="object-contain"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div>
@@ -101,21 +99,19 @@ export default function Footer() {
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
             {[
-              { name: 'GS건설', logo: '/image/partner_gs.png' },
-              { name: '쌍용건설', logo: '/image/partner_ssangyong.png' },
-              { name: '대우건설', logo: '/image/partner_daewoo.png' },
-              { name: 'SK건설', logo: '/image/partner_sk.png' },
-              { name: '한화건설', logo: '/image/partner_hanwha.png' },
-              { name: 'DL이앤씨', logo: '/image/partner_dl.png' }
+              { name: 'GS건설', logo: '/image/partner_gs.svg' },
+              { name: '쌍용건설', logo: '/image/partner_ssangyong.svg' },
+              { name: '대우건설', logo: '/image/partner_daewoo.svg' },
+              { name: 'SK건설', logo: '/image/partner_sk.svg' },
+              { name: '한화건설', logo: '/image/partner_hanwha.svg' },
+              { name: 'DL이앤씨', logo: '/image/partner_dl.svg' }
             ].map((partner) => (
-              <div key={partner.name} className="flex items-center justify-center p-4 bg-white/5 hover:bg-white/10 transition-colors rounded-sm min-h-24">
-                <Image
+              <div key={partner.name} className="flex items-center justify-center p-3 bg-white hover:bg-gray-50 transition-colors rounded-sm h-20">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={partner.logo}
                   alt={partner.name}
-                  width={120}
-                  height={70}
-                  className="object-contain"
-                  unoptimized
+                  className="w-full h-full object-contain"
                 />
               </div>
             ))}
