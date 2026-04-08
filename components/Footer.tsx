@@ -1,6 +1,15 @@
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
+  const partners = [
+    { name: 'GS건설', short: 'GS', color: '#1e5ca3', sub: 'CONSTRUCTION' },
+    { name: '쌍용건설', short: '쌍용', color: '#c0392b', sub: 'SSANGYONG' },
+    { name: '대우건설', short: '대우', color: '#2c3e50', sub: 'DAEWOO' },
+    { name: 'SK에코플랜트', short: 'SK', color: '#e74c3c', sub: 'ECOPLANT' },
+    { name: '한화건설', short: '한화', color: '#e67e22', sub: 'HANWHA' },
+    { name: 'DL이앤씨', short: 'DL', color: '#27ae60', sub: 'E&C' },
+  ]
+
   return (
     <footer className="bg-navy-900 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -11,12 +20,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-10 h-10">
+              <div className="w-10 h-10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/image/logo_transparent.png"
                   alt="피플인피플 로고"
-                  className="w-full h-full object-contain"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                 />
               </div>
               <div>
@@ -32,7 +41,6 @@ export default function Footer() {
               기획 첫날부터 입주 완료일까지,
               <br />끝까지 함께합니다.
             </p>
-
           </div>
 
           {/* Company Info */}
@@ -97,22 +105,40 @@ export default function Footer() {
           <p className="text-xs font-semibold text-white/30 tracking-widest uppercase mb-6">
             Business Partners
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-            {[
-              { name: 'GS건설', logo: '/image/partner_gs.svg' },
-              { name: '쌍용건설', logo: '/image/partner_ssangyong.svg' },
-              { name: '대우건설', logo: '/image/partner_daewoo.svg' },
-              { name: 'SK건설', logo: '/image/partner_sk.svg' },
-              { name: '한화건설', logo: '/image/partner_hanwha.svg' },
-              { name: 'DL이앤씨', logo: '/image/partner_dl.svg' }
-            ].map((partner) => (
-              <div key={partner.name} className="flex items-center justify-center p-3 bg-white hover:bg-gray-50 transition-colors rounded-sm h-20">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className="w-full h-full object-contain"
-                />
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+            {partners.map((partner) => (
+              <div
+                key={partner.name}
+                className="flex flex-col items-center justify-center rounded-sm hover:scale-105 transition-transform duration-200"
+                style={{
+                  backgroundColor: partner.color,
+                  height: '48px',
+                  padding: '4px 8px',
+                }}
+              >
+                <span
+                  style={{
+                    color: '#ffffff',
+                    fontSize: '13px',
+                    fontWeight: '900',
+                    lineHeight: 1.1,
+                    letterSpacing: '-0.02em',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {partner.short}
+                </span>
+                <span
+                  style={{
+                    color: 'rgba(255,255,255,0.6)',
+                    fontSize: '8px',
+                    fontWeight: '600',
+                    letterSpacing: '0.05em',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {partner.sub}
+                </span>
               </div>
             ))}
           </div>

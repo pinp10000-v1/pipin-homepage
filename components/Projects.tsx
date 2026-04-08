@@ -198,16 +198,26 @@ export default function Projects() {
                 gridTemplateColumns: `repeat(${portfolioProjects.length}, minmax(calc(100% / ${itemsPerPage}), 1fr))`,
               }}
             >
-              {portfolioProjects.map((project) => (
+              {portfolioProjects.map((project, idx) => (
                 <div key={project.name} className="flex-shrink-0">
-                  <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-white/10 to-white/5 mb-4">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={project.image}
-                      alt={project.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
+                  <div
+                    className="mb-4 overflow-hidden group"
+                    style={{
+                      height: '192px',
+                      width: '100%',
+                      backgroundImage: `url(${project.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundColor: [
+                        '#1e3a5f','#2d5a8c','#3d7aad','#1a4f6e',
+                        '#0d3b5e','#1f5f8f','#003d5c','#00527d',
+                        '#006b9e','#0088bf','#1e3a5f','#2d5a8c',
+                        '#3d7aad','#1a4f6e','#0d3b5e','#1f5f8f',
+                      ][idx % 16],
+                      transition: 'transform 0.5s ease',
+                    }}
+                  />
                   <p className="text-xs font-semibold text-teal/70 tracking-widest uppercase mb-1">
                     {project.region}
                   </p>
