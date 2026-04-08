@@ -83,30 +83,32 @@ export default function About() {
             </p>
 
             {/* CEO Quote Card */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
-              {/* CEO Photo */}
-              <div className="relative h-80 sm:h-auto overflow-hidden bg-navy">
-                <Image
-                  src="/image/ceo_photo.jpg"
-                  alt="CEO 김성룡"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* CEO Quote */}
-              <div className="bg-navy p-8 relative flex flex-col justify-between">
-                <div>
-                  <span className="absolute top-6 left-8 text-6xl text-teal/20 font-serif leading-none">&ldquo;</span>
-                  <p className="text-white/90 text-base leading-relaxed relative z-10 pt-4">
-                    고객의 중심에서 고객의 기대를 초월하는 기업만이 성공할 수 있습니다.
-                    피플인피플은 그 원칙 하나로 12년을 걸어왔고, 앞으로도 변하지 않을 것입니다.
-                  </p>
+            <div className="mt-10 border border-gray-200 overflow-hidden">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 items-stretch">
+                {/* CEO Photo */}
+                <div className="relative h-80 sm:h-auto overflow-hidden bg-navy">
+                  <Image
+                    src="/image/ceo_photo.jpg"
+                    alt="CEO 김성룡"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div className="mt-8 flex items-center gap-3">
+
+                {/* CEO Quote */}
+                <div className="bg-navy p-8 relative flex flex-col justify-between">
                   <div>
-                    <p className="text-white font-black text-sm">김성룡</p>
-                    <p className="text-white/40 text-xs tracking-widest">대표이사 — ㈜피플인피플</p>
+                    <span className="absolute top-6 left-8 text-6xl text-teal/20 font-serif leading-none">&ldquo;</span>
+                    <p className="text-white/90 text-base leading-relaxed relative z-10 pt-4">
+                      고객의 중심에서 고객의 기대를 초월하는 기업만이 성공할 수 있습니다.
+                      피플인피플은 그 원칙 하나로 12년을 걸어왔고, 앞으로도 변하지 않을 것입니다.
+                    </p>
+                  </div>
+                  <div className="mt-8 flex items-center gap-3">
+                    <div>
+                      <p className="text-white font-black text-sm">김성룡</p>
+                      <p className="text-white/40 text-xs tracking-widest">대표이사 — ㈜피플인피플</p>
+                    </div>
                   </div>
                 </div>
               </div>
