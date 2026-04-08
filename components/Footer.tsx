@@ -94,6 +94,20 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Business Partners */}
+        <div className="py-8 border-b border-white/10">
+          <p className="text-xs font-semibold text-white/30 tracking-widest uppercase mb-6">
+            Business Partners
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+            {['GS건설', '쌍용건설', '대우건설', 'SK건설', '한화건설', 'DL이앤씨'].map((partner) => (
+              <div key={partner} className="flex items-center justify-center p-4 bg-white/5 hover:bg-white/10 transition-colors rounded-sm">
+                <p className="text-white/40 text-[10px] font-bold text-center">{partner}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/20 text-xs">

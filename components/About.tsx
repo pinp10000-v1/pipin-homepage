@@ -76,11 +76,27 @@ export default function About() {
               2013년 창업 이래, 피플인피플은 단 하나의 원칙으로 성장했습니다.
               <strong className="text-orange-500 font-bold text-lg"> &ldquo;고객이 기대하는 것 이상을 해낸다.&rdquo;</strong>
             </p>
-            <p className="text-gray-500 text-base leading-relaxed">
+            <p className="text-gray-500 text-base leading-relaxed mb-8">
               대형 건설사가 먼저 찾고, 초기 분양 미달 현장도 완판으로 이끈 조직력.
               부산·경남을 넘어 수도권까지 확장된 현장 실행력.
               우리는 숫자로 신뢰를 증명해왔습니다.
             </p>
+
+            {/* 누적 실적 통계 */}
+            <div className="grid grid-cols-3 gap-6 mb-8">
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">16</p>
+                <p className="text-xs font-semibold text-gray-600 tracking-widest">단지</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">6,182</p>
+                <p className="text-xs font-semibold text-gray-600 tracking-widest">세대</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">60+</p>
+                <p className="text-xs font-semibold text-gray-600 tracking-widest">컨설팅</p>
+              </div>
+            </div>
 
             {/* CEO Quote Card */}
             <div className="mt-10 border border-gray-200 overflow-hidden">

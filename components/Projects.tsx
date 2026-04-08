@@ -5,43 +5,57 @@ import Image from 'next/image'
 
 const projects = [
   {
-    year: '2021',
-    region: '경남 김해시 안동',
-    name: '김해 푸르지오 하이앤드 2차',
-    contractor: 'GS건설',
-    tag: '아파트',
+    year: '2025',
+    region: '인천시 청라동 202-2',
+    name: '청라 SK V1 지식산업센터',
+    contractor: 'SK건설',
+    tag: '지식산업센터',
     stats: [
-      { num: '1,380', label: '세대' },
-      { num: '100%', label: '초기 분양 완료' },
+      { num: '500', label: '실' },
+      { num: '2025', label: '입주 예정' },
     ],
-    desc: '부·울·경 단일 분양 현장 최대 규모급. 투자 수요와 실거주 수요를 분리 타겟팅하여 세대별·평형별 DB를 먼저 구축 후 현장을 열었습니다. 초기 분양 기간 내 1,380세대 전량 계약 완료.',
-    quote: '"세대 수가 많을수록 분양 전략의 정밀도가 핵심입니다."',
+    desc: '청라국제신도시의 대규모 지식산업센터 프로젝트. 현대적 업무 환경과 우수한 교통 인프라가 특징입니다. 분양 중인 최신 프로젝트로 우수한 입지 조건을 갖추고 있습니다.',
+    quote: '"수도권 확장의 핵심 거점, 청라 SK V1"',
   },
   {
-    year: '2020',
-    region: '부산시 연제구 연산동',
-    name: '연제 SK VIEW CENTRAL',
-    contractor: 'SK에코플랜트',
-    tag: '아파트 + 오피스텔',
+    year: '2024',
+    region: '경기도 광명시 광명동',
+    name: '광명 퍼스트스위첸',
+    contractor: 'DL이앤씨',
+    tag: '오피스텔 + 상업시설',
     stats: [
-      { num: '405', label: '세대 + 오피스텔 48실' },
-      { num: '100%', label: '입주대행 완료' },
+      { num: '275', label: '오피스텔' },
+      { num: '진행중', label: '입주대행' },
     ],
-    desc: 'SK 브랜드 아파트 + 오피스텔 복합 단지. 두 상품군의 수요층을 분리하여 채널별 전략 운영. 분양 완료 후 입주대행까지 동일 팀이 직접 수행, 100% 입주 완료.',
-    quote: '"입주 완료일까지 같은 팀이 책임집니다."',
+    desc: '광명시의 랜드마크 오피스텔 프로젝트. 근린생활시설을 포함한 복합개발로 입주 후 최고의 생활환경을 제공합니다. 현재 입주대행이 진행 중입니다.',
+    quote: '"광명의 새로운 주거 표준"',
   },
 ]
 
 const portfolioProjects = [
-  { name: '광안지웰에스테이트 더테라스', region: '부산·경남', image: '/image/portfolio_01.png' },
-  { name: '연제 SK VIEW CENTRAL', region: '부산·경남', image: '/image/portfolio_02.png' },
-  { name: '센텀 천일스카이원', region: '부산·경남', image: '/image/portfolio_03.png' },
-  { name: '혜도인 파크에비뉴 서면', region: '부산·경남', image: '/image/portfolio_04.png' },
-  { name: '삼정 사직역 그린코아', region: '부산·경남', image: '/image/portfolio_05.png' },
-  { name: '울산 혁신비즈니스센터', region: '부산·경남', image: '/image/portfolio_06.png' },
-  { name: '송도 베스트웨스턴 플러스', region: '부산·경남', image: '/image/portfolio_07.png' },
-  { name: '광명 퍼스트스위첸', region: '수도권', image: '/image/portfolio_08.png' },
-  { name: '청라 SK V1 지식산업센터', region: '수도권', image: '/image/portfolio_09.png' },
+  // 2013-2017
+  { name: '대구 오페라 삼정 그린코아', region: '기타', image: '/image/portfolio_01.png', year: '2013' },
+  { name: '창원 MK타워', region: '부산·경남', image: '/image/portfolio_02.png', year: '2014' },
+  { name: '부산 삼정 사직역 그린코아 2차', region: '부산·경남', image: '/image/portfolio_03.png', year: '2015' },
+  { name: '부산 개금 대상 웰리움', region: '부산·경남', image: '/image/portfolio_04.png', year: '2016' },
+  { name: '혜도인 파크에비뉴 서면', region: '부산·경남', image: '/image/portfolio_05.png', year: '2017' },
+
+  // 2017-2019
+  { name: '광안지웰에스테이트 더테라스', region: '부산·경남', image: '/image/portfolio_06.png', year: '2017' },
+  { name: '거제 장승포 마이투스', region: '부산·경남', image: '/image/portfolio_07.png', year: '2017' },
+  { name: '센텀 천일스카이원', region: '부산·경남', image: '/image/portfolio_08.png', year: '2018' },
+  { name: '울산 혁신비즈니스센터', region: '부산·경남', image: '/image/portfolio_09.png', year: '2019' },
+  { name: '송도 베스트웨스턴 플러스', region: '부산·경남', image: '/image/portfolio_10.png', year: '2019' },
+
+  // 2019-2021
+  { name: '광안지웰에스테이트 (분양/입주)', region: '부산·경남', image: '/image/portfolio_11.png', year: '2019' },
+  { name: '김해 푸르지오 하이앤드 2차', region: '부산·경남', image: '/image/portfolio_12.png', year: '2021' },
+  { name: '연제 SK VIEW CENTRAL', region: '부산·경남', image: '/image/portfolio_13.png', year: '2020' },
+
+  // 2022-2025 (최신)
+  { name: '광명 퍼스트스위첸', region: '수도권', image: '/image/portfolio_14.png', year: '2024' },
+  { name: '청라 SK V1 지식산업센터', region: '수도권', image: '/image/portfolio_15.png', year: '2025' },
+  { name: '내동 테라스파크 (분양/입주)', region: '부산·경남', image: '/image/portfolio_16.png', year: '2017' },
 ]
 
 export default function Projects() {

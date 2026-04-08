@@ -90,12 +90,17 @@ export default function Services() {
               우리가 하는 일
             </h2>
           </div>
-          <p className="text-gray-500 text-sm md:text-base max-w-xs leading-relaxed">
-            <span className="block border border-orange-400 text-orange-400 px-4 py-3 rounded-none font-semibold">
-              분양 기획부터 입주 관리까지.
-              <br />사업의 전 단계를 책임집니다.
-            </span>
-          </p>
+          <div className="space-y-3">
+            <p className="text-gray-500 text-sm md:text-base max-w-xs leading-relaxed">
+              <span className="block border border-orange-400 text-orange-400 px-4 py-3 rounded-none font-semibold">
+                분양 기획부터 입주 관리까지.
+                <br />사업의 전 단계를 책임집니다.
+              </span>
+            </p>
+            <p className="text-right text-sm font-bold text-teal">
+              60+ 건의 컨설팅 실적
+            </p>
+          </div>
         </div>
 
         {/* Service Cards */}
