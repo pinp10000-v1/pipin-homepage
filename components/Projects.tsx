@@ -88,8 +88,10 @@ export default function Projects() {
             </h2>
           </div>
           <p className="text-white/40 text-sm md:text-base max-w-xs leading-relaxed">
-            창사 이래 16개 단지, 6,182세대.
-            <br />모든 현장에서 숫자로 증명했습니다.
+            <span className="block border border-orange-400 text-orange-400 px-4 py-3 rounded-none font-semibold">
+              창사 이래 16개 단지, 6,182세대.
+              <br />모든 현장에서 숫자로 증명했습니다.
+            </span>
           </p>
         </div>
 

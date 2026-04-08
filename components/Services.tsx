@@ -91,8 +91,10 @@ export default function Services() {
             </h2>
           </div>
           <p className="text-gray-500 text-sm md:text-base max-w-xs leading-relaxed">
-            분양 기획부터 입주 관리까지.
-            <br />사업의 전 단계를 책임집니다.
+            <span className="block border border-orange-400 text-orange-400 px-4 py-3 rounded-none font-semibold">
+              분양 기획부터 입주 관리까지.
+              <br />사업의 전 단계를 책임집니다.
+            </span>
           </p>
         </div>
 
