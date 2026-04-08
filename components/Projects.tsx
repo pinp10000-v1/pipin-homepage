@@ -206,6 +206,7 @@ export default function Projects() {
                       alt={project.name}
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-500"
+                      unoptimized
                       onError={(e) => {
                         const target = e.target as HTMLImageElement
                         target.style.display = 'none'

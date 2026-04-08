@@ -109,16 +109,14 @@ export default function Footer() {
               { name: 'DL이앤씨', logo: '/image/partner_dl.png' }
             ].map((partner) => (
               <div key={partner.name} className="flex items-center justify-center p-4 bg-white/5 hover:bg-white/10 transition-colors rounded-sm min-h-24">
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <Image
-                    src={partner.logo}
-                    alt={partner.name}
-                    width={80}
-                    height={60}
-                    className="object-contain"
-                    priority={false}
-                  />
-                </div>
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={120}
+                  height={70}
+                  className="object-contain"
+                  unoptimized
+                />
               </div>
             ))}
           </div>
