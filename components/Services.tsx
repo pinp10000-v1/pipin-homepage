@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useReveal } from '@/hooks/useReveal'
 
 const services = [
   {
@@ -13,11 +13,7 @@ const services = [
       </svg>
     ),
     desc: '사업지 분석부터 조직 운영, 사후 관리까지 전 과정을 책임집니다. 초기 분양 미달 현장도 완판으로 이끄는 현장 실행력을 보유하고 있습니다.',
-    items: [
-      '아파트 · 오피스텔 · 지식산업센터 전 상품군',
-      '창사 이래 16개 단지 6,182세대 분양 완료',
-      '초기 미달 현장 재분양 특화 조직 보유',
-    ],
+    items: ['아파트 · 오피스텔 · 지식산업센터 전 상품군', '창사 이래 16개 단지 6,182세대 분양 완료', '초기 미달 현장 재분양 특화 조직 보유'],
     highlight: '16개 단지 완판',
   },
   {
@@ -30,11 +26,7 @@ const services = [
       </svg>
     ),
     desc: 'GS건설, 쌍용건설 등 대형 건설사의 파트너로서 분양가 산정, 상품 기획, 시장성 검토 등 정밀한 데이터를 제공합니다.',
-    items: [
-      '사업성 수지 분석 및 리스크 진단',
-      'MD 구성 및 기획 전략 수립',
-      '60건 이상의 풍부한 컨설팅 실적',
-    ],
+    items: ['사업성 수지 분석 및 리스크 진단', 'MD 구성 및 기획 전략 수립', '60건 이상의 풍부한 컨설팅 실적'],
     highlight: '60건+ 수행 실적',
   },
   {
@@ -47,63 +39,32 @@ const services = [
       </svg>
     ),
     desc: '분양 완료가 끝이 아닙니다. 잔금 처리 및 법무 지원까지 책임지는 동일 담당자 시스템으로 분쟁 없는 100% 입주를 보장합니다.',
-    items: [
-      '입주 지원 센터 및 민원 처리 솔루션',
-      '잔금 관리 및 소유권 이전 법무 지원',
-      '연제 SK VIEW CENTRAL 입주 100% 완료',
-    ],
+    items: ['입주 지원 센터 및 민원 처리 솔루션', '잔금 관리 및 소유권 이전 법무 지원', '연제 SK VIEW CENTRAL 입주 100% 완료'],
     highlight: '입주율 100% 달성',
   },
 ]
 
 export default function Services() {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const cards = ref.current?.querySelectorAll('.reveal')
-    if (!cards) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
-    )
-    cards.forEach((card) => observer.observe(card))
-    return () => observer.disconnect()
-  }, [])
+  const ref = useReveal()
 
   return (
     <section id="services" className="bg-surface bg-grid py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10" ref={ref}>
-        {/* Header */}
         <div className="reveal mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <p className="text-xs font-semibold tracking-[0.25em] text-teal uppercase mb-4">
-              WHAT WE DO
-            </p>
-            <h2 className="text-3xl md:text-5xl font-black text-navy leading-tight">
-              우리가 하는 일
-            </h2>
+            <p className="text-xs font-semibold tracking-[0.25em] text-teal uppercase mb-4">WHAT WE DO</p>
+            <h2 className="text-3xl md:text-5xl font-black text-navy leading-tight">우리가 하는 일</h2>
           </div>
           <div className="space-y-3">
             <p className="text-gray-500 text-sm md:text-base max-w-xs leading-relaxed">
-              <span className="block border border-orange-400 text-orange-400 px-4 py-3 rounded-none font-semibold">
-                분양 기획부터 입주 관리까지.
-                <br />사업의 전 단계를 책임집니다.
+              <span className="block border border-orange-400 text-orange-400 px-4 py-3 font-semibold">
+                분양 기획부터 입주 관리까지.<br />사업의 전 단계를 책임집니다.
               </span>
             </p>
-            <p className="text-right text-sm font-bold text-teal">
-              60+ 건의 컨설팅 실적
-            </p>
+            <p className="text-right text-sm font-bold text-teal">60+ 건의 컨설팅 실적</p>
           </div>
         </div>
 
-        {/* Service Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <div
@@ -111,31 +72,14 @@ export default function Services() {
               className="reveal group bg-white border border-gray-100 p-8 md:p-9 hover:border-teal hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               style={{ transitionDelay: `${i * 120}ms` }}
             >
-              {/* Icon + Number */}
               <div className="flex items-center justify-between mb-6">
                 <span className="text-4xl">{service.icon}</span>
-                <span className="text-6xl font-black text-gray-100 group-hover:text-teal/15 transition-colors leading-none select-none">
-                  {service.num}
-                </span>
+                <span className="text-6xl font-black text-gray-100 group-hover:text-teal/15 transition-colors leading-none select-none">{service.num}</span>
               </div>
-
-              {/* Title */}
-              <h3 className="text-xl font-black text-navy mb-1">
-                {service.title}
-              </h3>
-              <p className="text-xs font-semibold tracking-widest text-teal uppercase mb-5">
-                {service.subtitle}
-              </p>
-
-              {/* Divider */}
+              <h3 className="text-xl font-black text-navy mb-1">{service.title}</h3>
+              <p className="text-xs font-semibold tracking-widest text-teal uppercase mb-5">{service.subtitle}</p>
               <div className="w-10 h-0.5 bg-teal mb-6 group-hover:w-16 transition-all duration-300" />
-
-              {/* Description */}
-              <p className="text-sm text-gray-600 leading-relaxed mb-6">
-                {service.desc}
-              </p>
-
-              {/* List */}
+              <p className="text-sm text-gray-600 leading-relaxed mb-6">{service.desc}</p>
               <ul className="space-y-3 mb-8">
                 {service.items.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
@@ -144,8 +88,6 @@ export default function Services() {
                   </li>
                 ))}
               </ul>
-
-              {/* Achievement Badge */}
               <div className="pt-5 border-t border-gray-100">
                 <span className="inline-flex items-center gap-2 text-xs font-bold text-teal">
                   <span className="w-2 h-2 rounded-full bg-teal" />

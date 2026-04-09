@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useReveal } from '@/hooks/useReveal'
 
 interface NewsItem {
   id: number
@@ -70,38 +71,16 @@ const mockNews: NewsItem[] = [
 ]
 
 export default function NewsInsight() {
-  const [news, setNews] = useState<NewsItem[]>(mockNews)
+  const [news] = useState<NewsItem[]>(mockNews)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [visibleCount, setVisibleCount] = useState(3)
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useReveal()
 
   useEffect(() => {
-    
-    const handleResize = () => {
-      setVisibleCount(window.innerWidth < 768 ? 1 : 3)
-    }
-    
+    const handleResize = () => setVisibleCount(window.innerWidth < 768 ? 1 : 3)
     handleResize()
     window.addEventListener('resize', handleResize)
-
-    const items = ref.current?.querySelectorAll('.reveal')
-    if (!items) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
-    )
-    items.forEach((item) => observer.observe(item))
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('resize', handleResize)
-    }
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const nextSlide = () => {

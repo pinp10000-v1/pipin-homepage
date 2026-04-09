@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { useReveal } from '@/hooks/useReveal'
 
 const milestones = [
   { year: '2013', event: '㈜피플인피플 창사', img: '/image/milestone_2013.png' },
@@ -35,25 +35,7 @@ const identityCards = [
 ]
 
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.reveal')
-    if (!items) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
-    )
-    items.forEach((item) => observer.observe(item))
-    return () => observer.disconnect()
-  }, [])
+  const ref = useReveal()
 
   return (
     <section id="about" className="bg-white py-24 md:py-32">

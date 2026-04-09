@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import { useState } from 'react'
+import { useReveal } from '@/hooks/useReveal'
 
 const projects = [
   {
@@ -25,7 +25,7 @@ const projects = [
     tag: '아파트 + 오피스텔',
     stats: [
       { num: '405', label: '세대 + 오피스텔 48실' },
-      { num: '100%', label: '입주대행 완료' },
+      { num: '100%', label: '분양 및 입주대행 완료' },
     ],
     desc: 'SK 브랜드 아파트 + 오피스텔 복합 단지. 두 상품군의 수요층을 분리하여 채널별 전략 운영. 분양 완료 후 입주대행까지 동일 팀이 직접 수행, 100% 입주 완료.',
     quote: '"입주 완료일까지 같은 팀이 책임집니다."',
@@ -59,27 +59,9 @@ const portfolioProjects = [
 ]
 
 export default function Projects() {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useReveal()
   const [currentIndex, setCurrentIndex] = useState(0)
   const itemsPerPage = 3
-
-  useEffect(() => {
-    const cards = ref.current?.querySelectorAll('.reveal')
-    if (!cards) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
-    )
-    cards.forEach((card) => observer.observe(card))
-    return () => observer.disconnect()
-  }, [])
 
   const nextSlide = () => {
     if (currentIndex < portfolioProjects.length - itemsPerPage) {
