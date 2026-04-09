@@ -1,7 +1,43 @@
 'use client'
 
 import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 import { useReveal } from '@/hooks/useReveal'
+
+function CountUp({ target, suffix = '', comma = false }: { target: number; suffix?: string; comma?: boolean }) {
+  const [count, setCount] = useState(0)
+  const el = useRef<HTMLSpanElement>(null)
+  const started = useRef(false)
+
+  useEffect(() => {
+    const node = el.current
+    if (!node) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || started.current) return
+        started.current = true
+        const duration = 2400
+        const fps = 60
+        const totalFrames = (duration / 1000) * fps
+        let frame = 0
+        const timer = setInterval(() => {
+          frame++
+          // easeOutQuart
+          const progress = 1 - Math.pow(1 - frame / totalFrames, 4)
+          const current = Math.round(progress * target)
+          setCount(current)
+          if (frame >= totalFrames) clearInterval(timer)
+        }, 1000 / fps)
+      },
+      { threshold: 0.6 }
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [target])
+
+  const display = comma ? count.toLocaleString() : count
+  return <span ref={el}>{display}{suffix}</span>
+}
 
 const milestones = [
   { year: '2013', event: '㈜피플인피플 창사', img: '/image/milestone_2013.png' },
@@ -67,15 +103,21 @@ export default function About() {
             {/* 누적 실적 통계 */}
             <div className="grid grid-cols-3 gap-6 mb-8">
               <div>
-                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">16</p>
+                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">
+                  <CountUp target={16} />
+                </p>
                 <p className="text-xs font-semibold text-gray-600 tracking-widest">단지</p>
               </div>
               <div>
-                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">6,182</p>
+                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">
+                  <CountUp target={6182} comma />
+                </p>
                 <p className="text-xs font-semibold text-gray-600 tracking-widest">세대</p>
               </div>
               <div>
-                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">60+</p>
+                <p className="text-4xl md:text-5xl font-black text-teal leading-none mb-2">
+                  <CountUp target={60} suffix="+" />
+                </p>
                 <p className="text-xs font-semibold text-gray-600 tracking-widest">컨설팅</p>
               </div>
             </div>

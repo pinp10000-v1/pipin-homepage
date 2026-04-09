@@ -1,57 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
-
-const stats = [
-  { target: 16, unit: '개 단지', label: 'TOTAL PROJECTS', suffix: '' },
-  { target: 6182, unit: '세대', label: 'UNITS SOLD', suffix: '' },
-  { target: 12, unit: '년 경력', label: 'YEARS ACTIVE', suffix: '+' },
-  { target: 60, unit: '건', label: 'CONSULTING', suffix: '+' },
-]
-
-function CountUp({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const started = useRef(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true
-          const duration = 1800
-          const steps = 60
-          const interval = duration / steps
-          const increment = target / steps
-          let current = 0
-          const timer = setInterval(() => {
-            current += increment
-            if (current >= target) {
-              setCount(target)
-              clearInterval(timer)
-            } else {
-              setCount(Math.floor(current))
-            }
-          }, interval)
-        }
-      },
-      { threshold: 0.5 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [target])
-
-  const display = target >= 1000 ? count.toLocaleString() : count
-
-  return (
-    <span ref={ref}>
-      {display}{suffix}
-    </span>
-  )
-}
 
 export default function Hero() {
   return (
@@ -120,11 +69,16 @@ export default function Hero() {
 
         {/* Key Stats Bar */}
         <div className="mt-24 pt-12 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-10 hero-fade-5">
-          {stats.map((item) => (
+          {[
+            { num: '16', unit: '개 단지', label: 'TOTAL PROJECTS' },
+            { num: '6,182', unit: '세대', label: 'UNITS SOLD' },
+            { num: '12+', unit: '년 경력', label: 'YEARS ACTIVE' },
+            { num: '60+', unit: '건', label: 'CONSULTING' },
+          ].map((item) => (
             <div key={item.label} className="group">
               <div className="flex items-end gap-1.5 mb-2">
                 <span className="text-3xl md:text-5xl font-black text-white leading-none group-hover:text-teal transition-colors">
-                  <CountUp target={item.target} suffix={item.suffix} />
+                  {item.num}
                 </span>
                 <span className="text-xs md:text-sm font-bold text-teal pb-1">
                   {item.unit}
