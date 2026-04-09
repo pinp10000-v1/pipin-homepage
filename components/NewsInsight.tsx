@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 
 interface NewsItem {
   id: number
@@ -176,13 +175,16 @@ export default function NewsInsight() {
                 }`}
               >
                 {/* Card Image */}
-                <div className="relative h-48 w-full overflow-hidden bg-gray-100">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                <div
+                  className="h-48 w-full overflow-hidden bg-gradient-to-br from-navy/80 to-teal/60 group-hover:from-teal/80 group-hover:to-navy/60 transition-colors duration-500 flex items-center justify-center relative"
+                  style={{ minHeight: '192px' }}
+                >
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="w-full h-full" style={{
+                      backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px)'
+                    }} />
+                  </div>
+                  <span className="text-white/30 text-xs font-bold tracking-widest uppercase z-10">{item.category}</span>
                 </div>
 
                 {/* Background Decor */}
