@@ -2,8 +2,8 @@
 import { createClient } from "@supabase/supabase-js"
 
 const supabase = createClient(
-  "https://mbsunuudpdvzozmjoxtt.supabase.co",
-  "sb_publishable_PwBH-c3ouCmz20B8vjOPhA_GNhYgPpU"
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
 
 // POST: n8n에서 기사 저장

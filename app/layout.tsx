@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Noto_Sans_KR } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const notoSansKr = Noto_Sans_KR({
@@ -29,7 +30,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={notoSansKr.variable}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <a
+          href="#hero"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-teal focus:text-white focus:px-4 focus:py-2 focus:font-bold focus:outline-none"
+        >
+          본문으로 바로가기
+        </a>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   )
 }

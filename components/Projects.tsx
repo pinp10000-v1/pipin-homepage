@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { useReveal } from '@/hooks/useReveal'
 
 const projects = [
@@ -153,18 +154,20 @@ export default function Projects() {
               <button
                 onClick={prevSlide}
                 disabled={currentIndex === 0}
+                aria-label="이전 포트폴리오"
                 className="w-10 h-10 flex items-center justify-center border border-white/20 text-white hover:border-teal hover:bg-teal/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
                 onClick={nextSlide}
                 disabled={currentIndex >= portfolioProjects.length - itemsPerPage}
+                aria-label="다음 포트폴리오"
                 className="w-10 h-10 flex items-center justify-center border border-white/20 text-white hover:border-teal hover:bg-teal/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -183,23 +186,24 @@ export default function Projects() {
               {portfolioProjects.map((project, idx) => (
                 <div key={project.name} className="flex-shrink-0">
                   <div
-                    className="mb-4 overflow-hidden group"
+                    className="mb-4 overflow-hidden group relative"
                     style={{
                       height: '192px',
-                      width: '100%',
-                      backgroundImage: `url(${project.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
                       backgroundColor: [
                         '#1e3a5f','#2d5a8c','#3d7aad','#1a4f6e',
                         '#0d3b5e','#1f5f8f','#003d5c','#00527d',
                         '#006b9e','#0088bf','#1e3a5f','#2d5a8c',
                         '#3d7aad','#1a4f6e','#0d3b5e','#1f5f8f',
                       ][idx % 16],
-                      transition: 'transform 0.5s ease',
                     }}
-                  />
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
                   <p className="text-xs font-semibold text-teal/70 tracking-widest uppercase mb-1">
                     {project.region}
                   </p>

@@ -93,7 +93,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-10 z-10 flex items-center gap-4 hero-fade-5">
+      <div aria-hidden="true" className="absolute bottom-10 left-10 z-10 flex items-center gap-4 hero-fade-5">
         <div className="w-px h-16 bg-gradient-to-t from-teal to-transparent" />
         <span className="text-white/20 text-[10px] font-bold tracking-[0.3em] uppercase rotate-180" style={{writingMode: 'vertical-rl'}}>Scroll to Explore</span>
       </div>

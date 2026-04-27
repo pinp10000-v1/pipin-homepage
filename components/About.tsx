@@ -36,7 +36,13 @@ function CountUp({ target, suffix = '', comma = false }: { target: number; suffi
   }, [target])
 
   const display = comma ? count.toLocaleString() : count
-  return <span ref={el}>{display}{suffix}</span>
+  const finalDisplay = comma ? target.toLocaleString() : target
+  return (
+    <>
+      <span ref={el} aria-hidden="true">{display}{suffix}</span>
+      <span className="sr-only">{finalDisplay}{suffix}</span>
+    </>
+  )
 }
 
 const milestones = [

@@ -2,6 +2,14 @@ import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { google } from 'googleapis'
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
@@ -35,12 +43,12 @@ export async function POST(req: Request) {
       html: `
         <h3>무료 사업지 검토 신청 접수</h3>
         <p><strong>접수 시간:</strong> ${submittedAt}</p>
-        <p><strong>성함/회사명:</strong> ${name}</p>
-        <p><strong>연락처:</strong> ${phone}</p>
-        <p><strong>문의 유형:</strong> ${type}</p>
+        <p><strong>성함/회사명:</strong> ${escapeHtml(name)}</p>
+        <p><strong>연락처:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>문의 유형:</strong> ${escapeHtml(type)}</p>
         <p><strong>상세 내용:</strong></p>
         <div style="background: #f5f5f5; padding: 15px; border-left: 4px solid #00C4A1;">
-          ${message.replace(/\n/g, '<br/>')}
+          ${escapeHtml(message).replace(/\n/g, '<br/>')}
         </div>
       `,
     }

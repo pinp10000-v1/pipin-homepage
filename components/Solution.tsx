@@ -9,7 +9,7 @@ const solutions = [
     answer: '창사 이래 초기 분양 실패 현장에도 진입하여 지역 특화 조직 분양 시스템으로 재분양 완판 사례 보유. "반드시 한다"는 원칙 아래, 완료 전까지 현장을 떠나지 않습니다.',
     highlight: '반드시 한다',
     icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
@@ -20,7 +20,7 @@ const solutions = [
     answer: 'SK에코플랜트·GS건설·쌍용건설·한화건설 등 대형 건설사에 60건 이상의 컨설팅 수행. 빅데이터 기반 수요 예측으로 분양가·상품 구성·타겟 고객층을 숫자로 먼저 검증합니다.',
     highlight: '60건 이상',
     icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
       </svg>
     ),
@@ -31,7 +31,7 @@ const solutions = [
     answer: '분양대행팀과 입주관리팀이 동일하게 운영됩니다. 연제 SK VIEW CENTRAL 405세대 입주 100% 완료. 잔금 처리까지 동일 담당자가 책임집니다.',
     highlight: '입주 100%',
     icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
       </svg>
     ),
@@ -71,7 +71,7 @@ export default function Solution() {
               </div>
               <div className="md:w-2/3 p-8 lg:p-12 relative overflow-hidden flex flex-col justify-center">
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <span className="text-8xl font-black text-white">{s.num}</span>
+                  <span className="text-8xl font-black text-white" aria-hidden="true">{s.num}</span>
                 </div>
                 <div className="relative z-10">
                   <div className="w-12 h-1 bg-teal mb-8 group-hover:w-20 transition-all duration-500" />

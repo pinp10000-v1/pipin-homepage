@@ -91,6 +91,7 @@ export default function Navigation() {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
+                aria-current={isActive ? 'page' : undefined}
                 className={`relative text-xs font-semibold tracking-[0.18em] transition-colors duration-300 pb-1 ${
                   isActive
                     ? 'text-teal'
@@ -132,7 +133,7 @@ export default function Navigation() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div aria-hidden={!menuOpen} className={`md:hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="flex flex-col px-6 py-5 gap-5">
           {navLinks.map((link) => (
             <button

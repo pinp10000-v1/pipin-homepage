@@ -2,8 +2,8 @@
 import { createClient } from "@supabase/supabase-js"
 
 const supabase = createClient(
-  "https://mbsunuudpdvzozmjoxtt.supabase.co",
-  "sb_publishable_PwBH-c3ouCmz20B8vjOPhA_GNhYgPpU"
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
 
 // GET: 특정 기사 상세 조회
