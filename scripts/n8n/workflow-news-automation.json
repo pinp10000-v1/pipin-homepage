@@ -1,0 +1,274 @@
+{
+  "name": "Daily News Automation - 피플인피플 인사이트",
+  "settings": {},
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "every",
+        "interval": "1",
+        "unit": "days",
+        "triggerAtHour": 6,
+        "triggerAtMinute": 0
+      },
+      "id": "cron-trigger",
+      "name": "Cron Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/everything",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "queryParams",
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "부동산 OR 건설 OR 개발 (Korea OR 한국)"
+            },
+            {
+              "name": "sortBy",
+              "value": "publishedAt"
+            },
+            {
+              "name": "pageSize",
+              "value": "10"
+            },
+            {
+              "name": "apiKey",
+              "value": "={{ $env.NEWS_API_KEY }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fetch-news",
+      "name": "Fetch News from NewsAPI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "loopDataPropertyName": "articles"
+      },
+      "id": "loop-articles",
+      "name": "Loop Articles",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "pip-biz.com"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-3.5-sonnet"
+            },
+            {
+              "name": "messages",
+              "value": "[{\"role\": \"system\", \"content\": \"당신은 피플인피플 사업개발팀입니다. 부동산 시장뉴스를 분석하여 건설/개발사 관점의 비즈니스 인사이트를 제공하세요.\"}, {\"role\": \"user\", \"content\": \"뉴스 제목: {{ $node['Split In Batches'].json.title }}\\n\\n뉴스 내용: {{ $node['Split In Batches'].json.description }}\\n\\n위 뉴스에 대해 다음을 JSON 형식으로 응답하세요:\\n1. title_rewritten: 피플인피플 관점으로 재작성한 제목\\n2. insight: 부동산 개발사 관점의 비즈니스 인사이트 (2-3문장)\\n3. category: 분류 (국내부동산|경제동향|분양시장|정책분석|시장분석|상업용부동산 중 선택)\\n4. keywords: 핵심 키워드 배열 (최대 5개)\\n5. significance: 중요도 (high|medium|low)\"}]"
+            },
+            {
+              "name": "temperature",
+              "value": 0.7
+            },
+            {
+              "name": "max_tokens",
+              "value": 600
+            }
+          ]
+        }
+      },
+      "id": "openrouter-rewrite",
+      "name": "OpenRouter - Rewrite & Classify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "try {\n  const responseBody = item.json.choices[0].message.content;\n  const parsed = JSON.parse(responseBody);\n  \n  return {\n    title_rewritten: parsed.title_rewritten || 'Untitled',\n    insight: parsed.insight || '',\n    category: parsed.category || '시장분석',\n    keywords: Array.isArray(parsed.keywords) ? parsed.keywords : [],\n    significance: parsed.significance || 'medium',\n    original_data: item.json\n  };\n} catch (e) {\n  return {\n    title_rewritten: 'Parse Error',\n    insight: 'Failed to parse OpenRouter response',\n    category: '시장분석',\n    keywords: [],\n    significance: 'low',\n    error: e.message\n  };\n}"
+      },
+      "id": "parse-response",
+      "name": "Parse OpenRouter Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://pip-biz.com/api/articles",
+        "method": "POST",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "application/json",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "title",
+              "value": "{{ $node['Parse OpenRouter Response'].json.title_rewritten }}"
+            },
+            {
+              "name": "summary",
+              "value": "{{ $node['Parse OpenRouter Response'].json.insight }}"
+            },
+            {
+              "name": "content",
+              "value": "{{ $node['Split In Batches'].json.description }}"
+            },
+            {
+              "name": "slug",
+              "value": "{{ $node['Split In Batches'].json.title.toLowerCase().replace(/[^a-z0-9\\s-]/g, '').replace(/\\s+/g, '-').substring(0, 100) }}"
+            },
+            {
+              "name": "category",
+              "value": "{{ $node['Parse OpenRouter Response'].json.category }}"
+            },
+            {
+              "name": "original_url",
+              "value": "{{ $node['Split In Batches'].json.url }}"
+            },
+            {
+              "name": "source",
+              "value": "NewsAPI"
+            },
+            {
+              "name": "published_at",
+              "value": "{{ $node['Split In Batches'].json.publishedAt }}"
+            },
+            {
+              "name": "image_url",
+              "value": "{{ $node['Split In Batches'].json.urlToImage }}"
+            },
+            {
+              "name": "keywords",
+              "value": "{{ $node['Parse OpenRouter Response'].json.keywords }}"
+            }
+          ]
+        }
+      },
+      "id": "post-to-api",
+      "name": "POST to Landing Page API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "success-notification",
+      "name": "Success Notification",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1450, 450]
+    }
+  ],
+  "connections": {
+    "Cron Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch News from NewsAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch News from NewsAPI": {
+      "main": [
+        [
+          {
+            "node": "Loop Articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Articles": {
+      "main": [
+        [
+          {
+            "node": "OpenRouter - Rewrite & Classify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter - Rewrite & Classify": {
+      "main": [
+        [
+          {
+            "node": "Parse OpenRouter Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse OpenRouter Response": {
+      "main": [
+        [
+          {
+            "node": "POST to Landing Page API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST to Landing Page API": {
+      "main": [
+        [
+          {
+            "node": "Success Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Error Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
