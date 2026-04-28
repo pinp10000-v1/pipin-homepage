@@ -3,6 +3,14 @@
   "settings": {},
   "nodes": [
     {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [50, 200]
+    },
+    {
       "parameters": {
         "mode": "every",
         "interval": "1",
@@ -14,7 +22,7 @@
       "name": "Cron Trigger",
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
-      "position": [250, 300]
+      "position": [50, 400]
     },
     {
       "parameters": {
@@ -195,6 +203,17 @@
     }
   ],
   "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch News from NewsAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Cron Trigger": {
       "main": [
         [

@@ -32,12 +32,12 @@ check_env() {
     exit 1
   fi
 
-  if [ -z "$OPENROUTER_API_KEY" ]; then
-    echo -e "${RED}❌ 오류: OPENROUTER_API_KEY 환경변수가 설정되지 않았습니다${NC}"
+  if [ -z "$GEMINI_API_KEY" ]; then
+    echo -e "${RED}❌ 오류: GEMINI_API_KEY 환경변수가 설정되지 않았습니다${NC}"
     echo -e "${YELLOW}설정 방법:${NC}"
-    echo "  1. https://openrouter.ai 접속 후 가입"
+    echo "  1. Google AI Studio 접속: https://aistudio.google.com"
     echo "  2. API Key 발급"
-    echo "  3. .env.local에 추가: OPENROUTER_API_KEY=your_key"
+    echo "  3. .env.local에 추가: GEMINI_API_KEY=your_key"
     exit 1
   fi
 }
@@ -143,7 +143,7 @@ usage() {
   echo "환경변수 설정 필수:"
   echo "  N8N_API_TOKEN        n8n API 토큰"
   echo "  NEWS_API_KEY         NewsAPI 키"
-  echo "  OPENROUTER_API_KEY   OpenRouter API 키"
+  echo "  GEMINI_API_KEY       Gemini API 키"
 }
 
 # n8n 웹훅 실행 (Manual Trigger 워크플로우용)
@@ -170,15 +170,24 @@ execute_webhook() {
     echo -e "${GREEN}✅ 워크플로우 활성화 완료${NC}"
   fi
 
-  # 웹훅 실행 (일부 버전에서 지원)
-  WEBHOOK_RESPONSE=$(curl -s -X POST \
-    "https://n8n.pipin.dedyn.io/api/v1/workflows/$WORKFLOW_ID/execute" \
-    -H "X-N8N-API-KEY: $N8N_API_TOKEN" \
+  # Manual Trigger 웹훅 실행
+  WEBHOOK_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+    "https://n8n.pipin.dedyn.io/webhook/$WORKFLOW_ID" \
     -H "Content-Type: application/json" \
     -d '{}' 2>&1)
 
-  echo -e "${YELLOW}📤 실행 요청 응답:${NC}"
-  echo "$WEBHOOK_RESPONSE" | head -5
+  HTTP_CODE=$(echo "$WEBHOOK_RESPONSE" | tail -n1)
+  BODY=$(echo "$WEBHOOK_RESPONSE" | sed '$d')
+
+  if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "201" ]; then
+    echo -e "${GREEN}✅ 워크플로우 즉시 실행 요청 완료${NC}"
+    echo -e "${YELLOW}💡 응답:${NC}"
+    echo "$BODY" | head -3
+  else
+    echo -e "${RED}❌ 실행 요청 실패 (HTTP $HTTP_CODE)${NC}"
+    echo -e "${YELLOW}응답:${NC}"
+    echo "$BODY" | head -3
+  fi
 }
 
 # 메인 로직
