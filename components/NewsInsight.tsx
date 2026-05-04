@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useReveal } from '@/hooks/useReveal'
 
 interface NewsItem {
@@ -83,7 +84,6 @@ function formatDate(dateStr: string): string {
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`
 }
 
-// 카테고리별 그라디언트 (이미지 없을 때 사용)
 const categoryGradients: Record<string, string> = {
   '국내부동산': 'from-blue-900/80 to-teal/60',
   '경제동향': 'from-navy/80 to-indigo-700/60',
@@ -157,7 +157,7 @@ export default function NewsInsight() {
                 {isLive ? '실시간 마켓 피드' : '마켓 피드'}
               </p>
             </div>
-            {/* Arrows */}
+            {/* 화살표 */}
             <div className="flex gap-2">
               <button
                 onClick={prevSlide}
@@ -183,25 +183,25 @@ export default function NewsInsight() {
           </div>
         </div>
 
-        {/* News Card Slider */}
+        {/* 뉴스 카드 슬라이더 */}
         <div className="relative overflow-hidden -mx-4 px-4 py-8">
           <div
             className="flex transition-transform duration-700 ease-in-out gap-6"
             style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)` }}
           >
             {news.map((item) => {
-              const href = item.original_url ?? '#'
-              const isExternal = !!item.original_url
               const gradient = getCategoryGradient(item.category)
 
               return (
-                <article
+                // 카드 전체를 /news/[slug] 내부 블로그 페이지로 연결
+                <Link
                   key={item.id}
-                  className={`reveal block group flex-shrink-0 bg-white shadow-lg border border-gray-100 transition-all duration-300 relative overflow-hidden flex flex-col ${
+                  href={`/news/${item.slug}`}
+                  className={`reveal block group flex-shrink-0 bg-white shadow-lg border border-gray-100 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer hover:shadow-xl ${
                     visibleCount === 1 ? 'w-full' : 'w-[calc(33.333%-1rem)]'
                   }`}
                 >
-                  {/* Card Image */}
+                  {/* 카드 이미지 */}
                   <div
                     className={`h-48 w-full overflow-hidden bg-gradient-to-br ${gradient} group-hover:opacity-90 transition-opacity duration-500 flex items-center justify-center relative`}
                     style={{ minHeight: '192px' }}
@@ -224,10 +224,10 @@ export default function NewsInsight() {
                     )}
                   </div>
 
-                  {/* Background Decor */}
-                  <div className="absolute top-48 right-0 w-16 h-16 bg-navy/5 -mr-8 -mt-8 rotate-45" />
+                  {/* 배경 장식 */}
+                  <div className="absolute top-48 right-0 w-16 h-16 bg-navy/5 -mr-8 -mt-8 rotate-45" aria-hidden="true" />
 
-                  {/* Card Content */}
+                  {/* 카드 본문 */}
                   <div className="p-10 flex flex-col flex-grow">
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-[10px] font-bold text-teal tracking-[0.2em] uppercase border-b-2 border-teal/20 pb-0.5">
@@ -247,31 +247,19 @@ export default function NewsInsight() {
                     </p>
 
                     <div className="flex items-center gap-3 mt-auto">
-                      {isExternal ? (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-3 text-teal font-black text-[10px] tracking-widest uppercase hover:gap-5 transition-all"
-                        >
-                          <span className="w-8 h-px bg-teal" />
-                          원문 보기
-                        </a>
-                      ) : (
-                        <span className="flex items-center gap-3 text-gray-300 font-black text-[10px] tracking-widest uppercase">
-                          <span className="w-8 h-px bg-gray-200" />
-                          COMING SOON
-                        </span>
-                      )}
+                      <span className="flex items-center gap-3 text-teal font-black text-[10px] tracking-widest uppercase group-hover:gap-5 transition-all">
+                        <span className="w-8 h-px bg-teal" />
+                        자세히 보기
+                      </span>
                     </div>
                   </div>
-                </article>
+                </Link>
               )
             })}
           </div>
         </div>
 
-        {/* Bottom Text */}
+        {/* 하단 텍스트 */}
         <div className="reveal mt-16 text-center">
           <p className="text-gray-400 text-[10px] tracking-widest uppercase font-bold opacity-30">
             * Selected Insights by People in People Research Team

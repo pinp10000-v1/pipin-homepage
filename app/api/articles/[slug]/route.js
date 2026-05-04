@@ -6,16 +6,23 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
 
-// GET: 특정 기사 상세 조회
+// GET: 특정 기사 상세 조회 (published만)
 export async function GET(request, { params }) {
   try {
     const { slug } = params
+    const { searchParams } = new URL(request.url)
+    const showAll = searchParams.get("admin") === process.env.ADMIN_SECRET
 
-    const { data, error } = await supabase
+    let query = supabase
       .from("articles")
       .select("*")
       .eq("slug", slug)
-      .single()
+
+    if (!showAll) {
+      query = query.eq("status", "published")
+    }
+
+    const { data, error } = await query.single()
 
     if (error && error.code === "PGRST116") {
       return Response.json(
@@ -23,19 +30,15 @@ export async function GET(request, { params }) {
         { status: 404 }
       )
     }
-
     if (error) throw error
 
-    // 조회수 증가 (선택사항)
+    // 조회수 증가
     await supabase
       .from("articles")
       .update({ views: (data.views || 0) + 1 })
       .eq("slug", slug)
 
-    return Response.json({
-      success: true,
-      data
-    })
+    return Response.json({ success: true, data })
   } catch (error) {
     console.error("GET /api/articles/[slug] error:", error)
     return Response.json(
@@ -45,45 +48,39 @@ export async function GET(request, { params }) {
   }
 }
 
-// 관련 기사 조회
-export async function GET_RELATED(request, { params }) {
+// PATCH: status 변경 (draft → published / published → draft)
+export async function PATCH(request, { params }) {
   try {
     const { slug } = params
+    const { searchParams } = new URL(request.url)
+    const adminKey = searchParams.get("admin")
 
-    // 현재 기사의 카테고리 가져오기
-    const { data: currentArticle } = await supabase
-      .from("articles")
-      .select("category")
-      .eq("slug", slug)
-      .single()
-
-    if (!currentArticle) {
-      return Response.json(
-        { success: false, error: "기사를 찾을 수 없습니다" },
-        { status: 404 }
-      )
+    if (adminKey !== process.env.ADMIN_SECRET) {
+      return Response.json({ success: false, error: "권한 없음" }, { status: 401 })
     }
 
-    // 같은 카테고리의 다른 기사 조회
-    const { data: relatedArticles, error } = await supabase
+    const body = await request.json()
+    const newStatus = body.status // 'published' | 'draft'
+
+    if (!["published", "draft"].includes(newStatus)) {
+      return Response.json({ success: false, error: "status는 published 또는 draft" }, { status: 400 })
+    }
+
+    const { data, error } = await supabase
       .from("articles")
-      .select("id, title, summary, slug, published_at, image_url")
-      .eq("category", currentArticle.category)
-      .neq("slug", slug)
-      .order("published_at", { ascending: false })
-      .limit(3)
+      .update({ status: newStatus })
+      .eq("slug", slug)
+      .select()
 
     if (error) throw error
 
     return Response.json({
       success: true,
-      data: relatedArticles
+      message: newStatus === "published" ? "기사가 공개되었습니다" : "초안으로 변경되었습니다",
+      data
     })
   } catch (error) {
-    console.error("GET_RELATED error:", error)
-    return Response.json(
-      { success: false, error: error.message },
-      { status: 400 }
-    )
+    console.error("PATCH /api/articles/[slug] error:", error)
+    return Response.json({ success: false, error: error.message }, { status: 400 })
   }
 }
