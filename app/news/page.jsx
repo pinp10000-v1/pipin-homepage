@@ -46,7 +46,8 @@ function getCategoryClass(category) {
 const CATEGORIES = ['국내부동산', '경제동향', '분양시장', '정책분석', '시장분석', '상업용부동산']
 
 export default async function NewsPage({ searchParams }) {
-  const category = searchParams?.category ?? ''
+  const resolvedParams = await searchParams
+  const category = resolvedParams?.category ?? ''
   const articles = await getArticles(category)
 
   return (

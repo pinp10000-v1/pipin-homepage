@@ -65,7 +65,7 @@ function getCategoryClass(category) {
 }
 
 export default async function NewsDetailPage({ params }) {
-  const { slug } = params
+  const { slug } = await params
   const article = await getArticle(slug)
 
   // Supabase에 없으면 404
@@ -246,7 +246,8 @@ export default async function NewsDetailPage({ params }) {
 
 // 404 페이지 메타데이터
 export async function generateMetadata({ params }) {
-  const article = await getArticle(params.slug)
+  const { slug } = await params
+  const article = await getArticle(slug)
   if (!article) return { title: '기사를 찾을 수 없습니다 | 피플인피플' }
 
   return {
